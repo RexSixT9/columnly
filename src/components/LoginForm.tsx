@@ -25,7 +25,6 @@ import { Loader } from 'lucide-react';
 import type {
   ActionResponse,
   AuthResponse,
-  ErrorResponse,
   ValidationError,
 } from '@/types';
 import { InputPassword } from './InputPassword';

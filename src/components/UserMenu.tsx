@@ -43,9 +43,9 @@ const UserMenu = () => {
           <DropdownMenuLabel className='p-0 font-normal'>
             <div className='flex items-center gap-2 px-1 py-1 text-left text-sm'>
               <Avatar
-                email={user.email}
+                name={user.email}
                 size='32'
-                className='rounded-lg'
+                className='rounded-md'
               />
               <div className='grid flex-1 text-left text-sm leading-tight'>
                 <div className='truncate font-medium'>{user.username}</div>
@@ -69,11 +69,8 @@ const UserMenu = () => {
               </DropdownMenuItem>
             )}
             <SettingsDialog>
-              <DropdownMenuItem asChild>
-                <Link to='/settings'>
-                  <SettingsIcon className='me-2' />
-                  Settings
-                </Link>
+              <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                <SettingsIcon className='me-2' /> Settings
               </DropdownMenuItem>
             </SettingsDialog>
             <DropdownMenuItem onClick={logout}>

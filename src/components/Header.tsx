@@ -5,9 +5,9 @@ import { cn } from '../lib/utils';
 import { Button } from './ui/button';
 import { Separator } from './ui/separator';
 import { MenuIcon, XIcon } from 'lucide-react';
-import Logo from './ui/Logo';
+import Logo from './layouts/Logo';
 import { NavBar } from './layouts/NavBar';
-import {useUser} from '@/hooks/useUser';
+import { useUser } from '@/hooks/useUser';
 import { ThemeToggle } from './ThemeToggle';
 import UserMenu from './UserMenu';
 
@@ -47,23 +47,37 @@ export const Header = ({
 
           {!user && (
             <>
-              <Separator
-                className='md:hidden'
-              />
+              <Separator className='md:hidden' />
               <div className='flex flex-col-reverse gap-y-3 gap-x-2 md:flex-row md:items-center max-md:p-3'>
-                <Button variant='outline' asChild>
-                  <Link to='/login' viewTransition>Login</Link>
+                <Button
+                  variant='outline'
+                  asChild
+                >
+                  <Link
+                    to='/login'
+                    viewTransition
+                  >
+                    Login
+                  </Link>
                 </Button>
-                <Button variant='default' asChild>
-                  <Link to='/login' viewTransition>Get Started</Link>
+                <Button
+                  variant='default'
+                  asChild
+                >
+                  <Link
+                    to='/login'
+                    viewTransition
+                  >
+                    Get Started
+                  </Link>
                 </Button>
               </div>
             </>
           )}
         </div>
-        <div className="flex items-center gap-1 ms-auto">
+        <div className='flex items-center gap-1 ms-auto'>
           <ThemeToggle />
-          <UserMenu/>
+          <UserMenu />
         </div>
       </div>
     </header>

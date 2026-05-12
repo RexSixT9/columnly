@@ -1,24 +1,22 @@
 import type { User } from '@/types';
 export type UserResponse = Pick<User, 'username' | 'email' | 'role'>;
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export const useUser = () => {
-  const [user, setUser] = useState<UserResponse>();
-
-  useEffect(() => {
+  const [user] = useState<UserResponse | undefined>(() => {
     const userJson = localStorage.getItem('user');
 
     if (!userJson || userJson === 'undefined' || userJson === 'null') {
-      return;
+      return undefined;
     }
 
     try {
-      const user = JSON.parse(userJson) as UserResponse;
-      setUser(user);
+      return JSON.parse(userJson) as UserResponse;
     } catch {
       localStorage.removeItem('user');
+      return undefined;
     }
-  }, []);
+  });
   return user;
 };
