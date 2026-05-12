@@ -8,4 +8,10 @@ import signupBanner from '@/assets/signup-banner.jpg';
 import logoLight from '@/assets/logo-light.svg';
 import logoDark from '@/assets/logo-dark.svg';
 
+import logoNavLight from '@/assets/columnly-dark.svg';
+import logoNavDark from '@/assets/columnly-dark.svg';
+import logoNavLightSmall from '@/assets/columnly-navbar-light.svg';
+import logoNavDarkSmall from '@/assets/columnly-navbar-dark.svg';
+
 export { loginBanner, signupBanner, logoLight, logoDark };
+export { logoNavLight, logoNavDark, logoNavLightSmall, logoNavDarkSmall };

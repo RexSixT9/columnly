@@ -4,11 +4,10 @@ import type { ActionResponse, AuthResponse } from '@/types';
 
 import { columnlyApi } from '@/api';
 
-export const signupAction: ActionFunction = async ({ request }) => {
+export const loginAction: ActionFunction = async ({ request }) => {
   const data = await request.json();
-
   try {
-    const response = await columnlyApi.post('/auth/register', data, {
+    const response = await columnlyApi.post('/auth/login', data, {
       withCredentials: true,
     });
     const responseData = response.data as {

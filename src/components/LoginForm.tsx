@@ -22,10 +22,16 @@ import {
 import { loginBanner } from '@/assets';
 import { Loader } from 'lucide-react';
 
-import type { ActionResponse, AuthResponse, ValidationError } from '@/types';
+import type {
+  ActionResponse,
+  AuthResponse,
+  ErrorResponse,
+  ValidationError,
+} from '@/types';
 import { InputPassword } from './InputPassword';
+import { toast } from 'sonner';
 
-type LoginFieldName = 'email' | 'password';
+type loginFieldName = 'email' | 'password';
 
 const LOGIN_FORM = {
   title: 'Welcome back',
@@ -64,8 +70,42 @@ export const LoginForm = ({
     },
   });
 
+  useEffect(() => {
+    if (!loginResponse) return;
+
+    if (loginResponse.ok) {
+      navigate('/', { viewTransition: true });
+      toast.success('Logged in successfully!');
+      return;
+    }
+
+    if (!loginResponse.err) return;
+
+    if (loginResponse.err.code === 'ValidationError') {
+      const validationError = loginResponse.err as ValidationError;
+
+      Object.entries(validationError.errors).forEach((value) => {
+        const [, validationError] = value;
+        const loginField = validationError.path as loginFieldName;
+
+        form.setError(
+          loginField,
+          {
+            type: 'custom',
+            message: validationError.msg,
+          },
+          { shouldFocus: true },
+        );
+      });
+    }
+  }, [loginResponse]);
+
   const onSubmit = useCallback(async (value: z.infer<typeof formSchema>) => {
-    console.log('Submitting form with data:', value);
+    await fetcher.submit(value, {
+      method: 'post',
+      action: '/login',
+      encType: 'application/json',
+    });
   }, []);
 
   return (
