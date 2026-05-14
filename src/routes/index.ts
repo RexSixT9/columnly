@@ -6,6 +6,7 @@ import { loginAction } from './actions/auth/login';
 import { refreshTokenLoader } from './loaders/refreshToken';
 import { RootLayout } from '@/components/layouts/Root';
 import { settingsAction } from './actions/user/settings';
+import { Home } from '@/pages/user/Home';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
+        Component: Home,
       },
       {
         path: 'blogs',

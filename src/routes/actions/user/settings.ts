@@ -21,7 +21,7 @@ export const settingsAction: ActionFunction = async ({ request }) => {
 
     const responseData = response.data;
 
-    localStorage.setItem('user', JSON.stringify(responseData.data));
+    localStorage.setItem('user', JSON.stringify(responseData.user));
 
     return {
       ok: true,

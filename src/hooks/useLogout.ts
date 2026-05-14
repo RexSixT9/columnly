@@ -1,6 +1,4 @@
 import { useLocation, useNavigate } from 'react-router';
-
-import { AxiosError } from 'axios';
 import { columnlyApi } from '@/api';
 
 export const useLogout = () => {
@@ -17,24 +15,18 @@ export const useLogout = () => {
       return;
     }
 
-    try {
-      const response = await columnlyApi.post(
-        '/auth/logout',
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-          withCredentials: true,
+    const response = await columnlyApi.post(
+      '/auth/logout',
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
         },
-      );
+        withCredentials: true,
+      },
+    );
 
-      if (response.status >= 400) return;
-    } catch (error) {
-      if (!(error instanceof AxiosError) || error.response?.status !== 401) {
-        throw error;
-      }
-    }
+    if (response.status >= 400) return;
 
     localStorage.removeItem('accessToken');
     localStorage.removeItem('user');
