@@ -71,17 +71,13 @@ const ProfileSettingsForm = () => {
     if (data && data.ok) {
       toast.success('Profile updated successfully');
     }
-
-    if (data && !data.ok) {
-      toast.error('Failed to update profile.');
-    }
   }, [data]);
 
   const defaultValues = {
     firstName: '',
     lastName: '',
-    email: '',
-    username: '',
+    email: user?.email || '',
+    username: user?.username || '',
   };
 
   const form = useForm<z.infer<typeof profileFormSchema>>({
