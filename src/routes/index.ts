@@ -5,7 +5,7 @@ import { signupAction } from './actions/auth/signup';
 import { loginAction } from './actions/auth/login';
 import { refreshTokenLoader } from './loaders/refreshToken';
 import { RootLayout } from '@/components/layouts/Root';
-import { settingsAction } from './actions/settings';
+import { settingsAction } from './actions/user/settings';
 
 const router = createBrowserRouter([
   {

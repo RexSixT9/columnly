@@ -21,7 +21,7 @@ export const settingsAction: ActionFunction = async ({ request }) => {
 
     const responseData = response.data;
 
-    localStorage.setItem('user', JSON.stringify(responseData.user));
+    localStorage.setItem('user', JSON.stringify(responseData.data));
 
     return {
       ok: true,
@@ -34,5 +34,7 @@ export const settingsAction: ActionFunction = async ({ request }) => {
         err: error.response?.data,
       };
     }
+
+    throw error;
   }
 };

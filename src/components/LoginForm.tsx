@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 
 import { Link, useFetcher, useNavigate } from 'react-router';
@@ -97,7 +96,7 @@ export const LoginForm = ({
         );
       });
     }
-  }, [loginResponse]);
+  }, [loginResponse, navigate, form]);
 
   const onSubmit = useCallback(async (value: z.infer<typeof formSchema>) => {
     await fetcher.submit(value, {
@@ -105,7 +104,7 @@ export const LoginForm = ({
       action: '/login',
       encType: 'application/json',
     });
-  }, []);
+  }, [fetcher]);
 
   return (
     <div

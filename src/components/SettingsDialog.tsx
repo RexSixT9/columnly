@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useCallback } from 'react';
 import { useFetcher } from 'react-router';
 import { Controller, useForm } from 'react-hook-form';
@@ -21,26 +21,27 @@ import { InputPassword } from './InputPassword';
 
 import { cn } from '../lib/utils';
 import { useUser } from '@/hooks/useUser';
-import {
-  AtSignIcon,
-  LoaderIcon,
-  MailIcon,
-} from 'lucide-react';
+import { AtSignIcon, LoaderIcon, MailIcon } from 'lucide-react';
 
 import type { DialogProps } from '@radix-ui/react-dialog';
 import { Field, FieldError, FieldLabel } from '@/components/ui/field';
+import type { ActionResponse } from '@/types';
+import { toast } from 'sonner';
 
 const profileFormSchema = z.object({
   firstName: z
     .string()
-    .max(20, { message: 'First name must be at most 20 characters' }),
+    .max(20, { message: 'First name must be at most 20 characters' })
+    .optional(),
   lastName: z
     .string()
-    .max(20, { message: 'Last name must be at most 20 characters' }),
-  email: z.string().email({ message: 'Invalid email address' }),
+    .max(20, { message: 'Last name must be at most 20 characters' })
+    .optional(),
+  email: z.string().email({ message: 'Invalid email address' }).optional(),
   username: z
     .string()
-    .max(20, { message: 'Username must be at most 20 characters' }),
+    .max(20, { message: 'Username must be at most 20 characters' })
+    .optional(),
 });
 
 const passwordFormSchema = z
@@ -60,16 +61,27 @@ const passwordFormSchema = z
   });
 
 const ProfileSettingsForm = () => {
-  const user = useUser();
   const fetcher = useFetcher();
+  const user = useUser();
 
-  const loading = fetcher.state !== 'idle' && Boolean(fetcher.formData);
+  const data = fetcher.data as ActionResponse;
+  const loading = fetcher.state !== 'idle';
+
+  useEffect(() => {
+    if (data && data.ok) {
+      toast.success('Profile updated successfully');
+    }
+
+    if (data && !data.ok) {
+      toast.error('Failed to update profile.');
+    }
+  }, [data]);
 
   const defaultValues = {
     firstName: '',
     lastName: '',
-    email: user?.email,
-    username: user?.username,
+    email: '',
+    username: '',
   };
 
   const form = useForm<z.infer<typeof profileFormSchema>>({
@@ -79,9 +91,13 @@ const ProfileSettingsForm = () => {
 
   const onSubmit = useCallback(
     async (data: z.infer<typeof profileFormSchema>) => {
-      console.log('Submitting profile data:', data);
+      await fetcher.submit(data, {
+        method: 'post',
+        action: '/settings',
+        encType: 'application/json',
+      });
     },
-    [],
+    [fetcher],
   );
 
   return (
@@ -114,7 +130,7 @@ const ProfileSettingsForm = () => {
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel
-                  htmlFor='form-first-name'
+                  htmlFor='firstName'
                   className='md:sr-only'
                 >
                   First Name
@@ -122,10 +138,9 @@ const ProfileSettingsForm = () => {
                 <Input
                   type='text'
                   {...field}
-                  id='form-first-name'
+                  id='firstName'
                   aria-invalid={fieldState.invalid}
                   placeholder='John'
-                  autoComplete='off'
                 />
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
@@ -139,7 +154,7 @@ const ProfileSettingsForm = () => {
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel
-                  htmlFor='form-last-name'
+                  htmlFor='lastName'
                   className='md:sr-only'
                 >
                   Last Name
@@ -147,10 +162,9 @@ const ProfileSettingsForm = () => {
                 <Input
                   {...field}
                   type='text'
-                  id='form-last-name'
+                  id='lastName'
                   aria-invalid={fieldState.invalid}
                   placeholder='Doe'
-                  autoComplete='off'
                 />
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
@@ -170,7 +184,7 @@ const ProfileSettingsForm = () => {
             data-invalid={fieldState.invalid}
             className='grid gap-2 items-start lg:grid-cols-[1fr_2fr]'
           >
-            <FieldLabel htmlFor='form-email'>Email</FieldLabel>
+            <FieldLabel htmlFor='email'>Email</FieldLabel>
             <div className='space-y-2'>
               <div className='relative'>
                 <MailIcon
@@ -180,10 +194,9 @@ const ProfileSettingsForm = () => {
                 <Input
                   {...field}
                   type='email'
-                  id='form-email'
+                  id='email'
                   aria-invalid={fieldState.invalid}
                   placeholder='john.doe@example.com'
-                  autoComplete='off'
                   className='ps-10'
                 />
               </div>
@@ -202,7 +215,7 @@ const ProfileSettingsForm = () => {
             data-invalid={fieldState.invalid}
             className='grid gap-2 items-start lg:grid-cols-[1fr_2fr]'
           >
-            <FieldLabel htmlFor='form-username'>Username</FieldLabel>
+            <FieldLabel htmlFor='username'>Username</FieldLabel>
             <div className='space-y-2'>
               <div className='relative'>
                 <AtSignIcon
@@ -212,10 +225,9 @@ const ProfileSettingsForm = () => {
                 <Input
                   {...field}
                   type='text'
-                  id='form-username'
+                  id='username'
                   aria-invalid={fieldState.invalid}
                   placeholder='john.doe'
-                  autoComplete='off'
                   className='ps-10'
                 />
               </div>
@@ -247,7 +259,14 @@ const ProfileSettingsForm = () => {
 
 const PasswordSettingsForm = () => {
   const fetcher = useFetcher();
-  const loading = fetcher.state !== 'idle' && Boolean(fetcher.formData);
+  const data = fetcher.data as ActionResponse;
+  const loading = fetcher.state !== 'idle';
+
+  useEffect(() => {
+    if (data && data.ok) {
+      toast.success('Password updated successfully');
+    }
+  }, [data]);
 
   const form = useForm<z.infer<typeof passwordFormSchema>>({
     resolver: zodResolver(passwordFormSchema),
@@ -269,9 +288,7 @@ const PasswordSettingsForm = () => {
   );
 
   return (
-    <form
-      onSubmit={form.handleSubmit(onSubmit)}
-    >
+    <form onSubmit={form.handleSubmit(onSubmit)}>
       <div>
         <h3 className='font-semibold'>Password Settings</h3>
         <p className='text-sm text-muted-foreground'>
