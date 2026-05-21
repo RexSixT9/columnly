@@ -3,8 +3,10 @@ import { motion } from 'motion/react';
 
 import { cn } from '@/lib/utils';
 import type { Variants } from 'motion/react';
+import type { HomeLoaderResponse } from '@/routes/loaders/user/home';
+import { BlogCard } from '@/components/BlogCard';
 
-const containerVariants: Variants = {
+const listVariants: Variants = {
   to: {
     transition: {
       staggerChildren: 0.5,
@@ -12,7 +14,7 @@ const containerVariants: Variants = {
   },
 };
 
-const childenVariants: Variants = {
+const itemVariants: Variants = {
   from: { opacity: 0 },
   to: {
     opacity: 1,
@@ -27,16 +29,55 @@ const RecentBlogs = ({
   className,
   ...props
 }: React.ComponentProps<'section'>) => {
+  const { recentBlogs } = useLoaderData<HomeLoaderResponse>();
   return (
-    <motion.section
+    <section
       className={cn('section', className)}
-      initial='from'
-      whileInView='to'
-      viewport={{ once: true }}
-      variants={containerVariants}
+      {...props}
     >
-      <motion.h2 variants={childenVariants}>Recent Blogs</motion.h2>
-    </motion.section>
+      <div className='container'>
+        <motion.h2
+          className='section-title'
+          initial={{ opacity: 0 }}
+          animate={{
+            opacity: 1,
+            transition: { duration: 0.5, ease: 'easeOut' },
+          }}
+        >
+          Recent Blogs
+        </motion.h2>
+
+        <motion.ul
+          className='grid gap-4 lg:grid-cols-2 lg:grid-rows-3'
+          initial='from'
+          whileInView='to'
+          viewport={{ once: true }}
+          variants={listVariants}
+        >
+          {recentBlogs.blogs.map(
+            ({ slug, banner, title, content, author, publishedAt }, index) => (
+              <motion.li
+                key={slug}
+                className={cn(index === 0 && 'lg:row-span-3')}
+                variants={itemVariants}
+              >
+                <BlogCard
+                  bannerUrl={banner.url}
+                  bannerWidth={banner.width}
+                  bannerHeight={banner.height}
+                  title={title}
+                  content={content}
+                  slug={slug}
+                  authorName={author.username}
+                  publishedAt={publishedAt}
+                  size={index > 0 ? 'sm' : 'default'}
+                />
+              </motion.li>
+            ),
+          )}
+        </motion.ul>
+      </div>
+    </section>
   );
 };
 

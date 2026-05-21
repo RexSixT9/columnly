@@ -19,18 +19,18 @@ const homeLoader: LoaderFunction = async () => {
     });
 
     const { data: allBlogs } = await columnlyApi.get('/blogs', {
-      params: { offset: 4, limit: 10 },
+      params: { offset: 4, limit: 12 },
     });
 
     return {
-      recentBlogs: recentBlogs.data,
-      allBlogs: allBlogs.data,
+      recentBlogs,
+      allBlogs,
     } as HomeLoaderResponse;
   } catch (error) {
     if (error instanceof AxiosError) {
       throw data(error.response?.data.message || error.message, {
-        statusText: error.response?.data.code || 'Error',
-        status: error.response?.status || 500,
+        status: error.response?.status || error.status,
+        statusText: error.response?.data.code || error.code,
       });
     }
     throw new Response('An unexpected error occurred', { status: 500 });

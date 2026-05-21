@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 
 import type { Variants } from 'motion/react';
 
-
 const HERO = {
   headline: 'Discover, Share, and Connect with Your Passion',
   text: 'Join our vibrant community of enthusiasts and experts. Share your knowledge, discover new insights, and connect with like-minded individuals who share your passion.',
@@ -22,7 +21,7 @@ const containerVariants: Variants = {
   },
 };
 
-const childenVariants: Variants = {
+const childrenVariants: Variants = {
   from: { opacity: 0, filter: 'blur(10px)' },
   to: {
     opacity: 1,
@@ -52,19 +51,19 @@ export const Hero = ({
       >
         <motion.h1
           className='text-3xl font-semibold text-center text-balance md:text-4xl'
-          variants={childenVariants}
+          variants={childrenVariants}
         >
           {HERO.headline}
         </motion.h1>
         <motion.p
           className='text-center text-balance text-muted-foreground  mt-5 mb-8 md:text-xl'
-          variants={childenVariants}
+          variants={childrenVariants}
         >
           {HERO.text}
         </motion.p>
         <motion.div
           className='max-w-md mx-auto flex items-center justify-center gap-2'
-          variants={childenVariants}
+          variants={childrenVariants}
         >
           <Input
             type='email'

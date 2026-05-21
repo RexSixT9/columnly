@@ -35,6 +35,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'blogs',
+        
       },
       {
         path: 'blogs/:slug',

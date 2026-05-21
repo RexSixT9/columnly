@@ -1,4 +1,4 @@
-import { StrictMode } from 'react';
+// import { StrictMode } from 'react';
 import { RouterProvider } from 'react-router';
 import { createRoot } from 'react-dom/client';
 import './index.css';
@@ -8,7 +8,7 @@ import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from './components/ui/tooltip';
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+  // <StrictMode>
     <TooltipProvider>
       <ThemeProvider
         defaultTheme='dark'
@@ -21,5 +21,5 @@ createRoot(document.getElementById('root')!).render(
         />
       </ThemeProvider>
     </TooltipProvider>
-  </StrictMode>,
+  // </StrictMode>,
 );
