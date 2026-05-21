@@ -7,11 +7,11 @@ import { Button } from '@/components/ui/button';
 
 import type { Variants } from 'motion/react';
 
+
 const HERO = {
-  headline: 'Discover Your Next Read with Columnly',
-  description:
-    'Explore a world of books, reviews, and recommendations. Find your next favorite read with Columnly.',
-  cta: 'Get Started',
+  headline: 'Discover, Share, and Connect with Your Passion',
+  text: 'Join our vibrant community of enthusiasts and experts. Share your knowledge, discover new insights, and connect with like-minded individuals who share your passion.',
+  cta: 'Join Now',
 } as const;
 
 const containerVariants: Variants = {
@@ -43,8 +43,39 @@ export const Hero = ({
       className={cn('section', className)}
       {...props}
     >
-      <motion.div>
-        <motion.h1>{HERO.headline}</motion.h1>
+      <motion.div
+        className='container'
+        initial='from'
+        whileInView='to'
+        viewport={{ once: true }}
+        variants={containerVariants}
+      >
+        <motion.h1
+          className='text-3xl font-semibold text-center text-balance md:text-4xl'
+          variants={childenVariants}
+        >
+          {HERO.headline}
+        </motion.h1>
+        <motion.p
+          className='text-center text-balance text-muted-foreground  mt-5 mb-8 md:text-xl'
+          variants={childenVariants}
+        >
+          {HERO.text}
+        </motion.p>
+        <motion.div
+          className='max-w-md mx-auto flex items-center justify-center gap-2'
+          variants={childenVariants}
+        >
+          <Input
+            type='email'
+            name='email'
+            autoComplete='email'
+            aria-label='email'
+            placeholder='Enter your email'
+            className='max-w-sm'
+          />
+          <Button>{HERO.cta}</Button>
+        </motion.div>
       </motion.div>
     </section>
   );

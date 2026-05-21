@@ -16,7 +16,7 @@ export const Header = ({
   ...props
 }: React.ComponentProps<'header'>) => {
   const user = useUser();
-  const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <header
