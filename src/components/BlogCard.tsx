@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
-import { Editor } from '@tiptap/react';
-import { StarterKit } from '@tiptap/starter-kit';
+import { useEditor } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit';
 import { formatDistanceToNowStrict } from 'date-fns';
 
 import { cn } from '@/lib/utils';
@@ -43,7 +43,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
   className,
   ...props
 }) => {
-  const editor = new Editor({
+  const editor = useEditor({
     extensions: [StarterKit],
     content,
     editable: false,
@@ -51,6 +51,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
   });
 
   return (
+    
     <Card
       className={cn(
         'group cursor-pointer relative pt-2 h-full @container',
@@ -60,6 +61,12 @@ export const BlogCard: React.FC<BlogCardProps> = ({
       )}
       {...props}
     >
+      <Link
+        to={`/blog/${slug}`}
+        className='absolute inset-0 z-10'
+        aria-label={title}
+        viewTransition
+      />
       <CardHeader
         className={cn(
           'gap-2',
@@ -68,9 +75,11 @@ export const BlogCard: React.FC<BlogCardProps> = ({
       >
         <div className='flex items-center gap-2 text-sm text-muted-foreground font-medium'>
           <p className='@max-3xs:hidden'>{authorName}</p>
-          <div className='w-1 h-1 bg-muted-foreground/50 rounded-full @max-3xs:hidden'></div>
+          <div className='w-1 h-1 bg-muted-foreground/50 rounded-full @max-3xs:hidden'>
+            {' '}
+          </div>
           <Tooltip delayDuration={250}>
-            <TooltipTrigger className='sr-only'>
+            <TooltipTrigger asChild>
               {formatDistanceToNowStrict(new Date(publishedAt), {
                 addSuffix: true,
               })}
@@ -83,20 +92,16 @@ export const BlogCard: React.FC<BlogCardProps> = ({
             </TooltipContent>
           </Tooltip>
         </div>
-        <Link
-          to={`/blog/${slug}`}
-          className='absolute inset-0 z-10'
-          viewTransition
+
+        <CardTitle
+          className={cn(
+            'relative z-20 underline-offset-4 hover:underline leading-tight line-clamp-2',
+            size === 'default' && 'text-xl @md:text-2xl',
+          )}
         >
-          <CardTitle
-            className={cn(
-              'underline-offset-4 hover:underline leading-tight line-clamp-2',
-              size === 'default' && 'text-xl @md:text-2xl',
-            )}
-          >
-            {title}
-          </CardTitle>
-        </Link>
+          {title}
+        </CardTitle>
+
         <CardDescription
           className={cn(
             'line-clamp-2 text-balanced',
@@ -106,25 +111,20 @@ export const BlogCard: React.FC<BlogCardProps> = ({
           {editor.getText()}
         </CardDescription>
       </CardHeader>
+
       <CardContent>
-        <Link
-          to={`/blog/${slug}`}
-          className='absolute inset-0 z-10'
-          viewTransition
+        <AspectRatio
+          ratio={21 / 9}
+          className='rounded-lg overflow-hidden'
         >
-          <AspectRatio
-            ratio={21 / 9}
-            className='rounded-lg overflow-hidden'
-          >
-            <img
-              src={bannerUrl}
-              alt={title}
-              width={bannerWidth}
-              height={bannerHeight}
-              className='object-cover w-full h-full'
-            />
-          </AspectRatio>
-        </Link>
+          <img
+            src={bannerUrl}
+            alt={title}
+            width={bannerWidth}
+            height={bannerHeight}
+            className='object-cover w-full h-full'
+          />
+        </AspectRatio>
       </CardContent>
     </Card>
   );

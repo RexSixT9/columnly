@@ -1,11 +1,86 @@
-import {useLoaderData} from 'react-router';
+import {useLoaderData, Link} from 'react-router';
 import {motion} from 'motion/react';
 import {cn} from '@/lib/utils';
 
+import {BlogCard} from '@/components/BlogCard';
+import {Button} from '@/components/ui/button';
 
-export const AllBlogs = () => {
+import type {Variants} from 'motion/react';
+import type {HomeLoaderResponse} from '@/routes/loaders/user/home';
 
-    return (
+const listVariants: Variants = {
+  to: {
+    transition: {
+      staggerChildren: 0.5,
+    },
+  },
+};
 
-    )
-}
+const itemVariants: Variants = {
+  from: { opacity: 0 },
+  to: {
+    opacity: 1,
+    transition: {
+      duration: 1,
+      ease: 'backInOut',
+    },
+  },
+};
+
+export const AllBlogs = ({
+  className,
+  ...props
+}: React.ComponentProps<'section'>) => {
+  const { allBlogs } = useLoaderData<HomeLoaderResponse>();
+  return (
+    <section
+      className={cn('section', className)}
+      {...props}
+    >
+      <div className='container'>
+        <motion.h2
+          className='section-title'
+          initial={{ opacity: 0 }}
+          animate={{
+            opacity: 1,
+            transition: { duration: 0.5, ease: 'easeOut' },
+          }}
+        >
+          All Blogs
+        </motion.h2>
+
+        <motion.ul
+          className='grid gap-4 lg:grid-cols-2 xl:grid-cols-3'
+          initial='from'
+          whileInView='to'
+          viewport={{ once: true }}
+          variants={listVariants}
+        >
+          {allBlogs.blogs.map(
+            ({ slug, banner, title, content, author, publishedAt }, index) => (
+              <motion.li
+                key={slug}
+                variants={itemVariants}
+              >
+                <BlogCard
+                  bannerUrl={banner.url}
+                  bannerWidth={banner.width}
+                  bannerHeight={banner.height}
+                  title={title}
+                  content={content}
+                  slug={slug}
+                  authorName={author.username}
+                  publishedAt={publishedAt}
+                />
+              </motion.li>
+            ),
+          )}
+        </motion.ul>
+        <motion.div>
+            
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
