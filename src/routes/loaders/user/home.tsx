@@ -19,7 +19,7 @@ const homeLoader: LoaderFunction = async () => {
     });
 
     const { data: allBlogs } = await columnlyApi.get('/blogs', {
-      params: { offset: 4, limit: 12 },
+      params: { offset: 4, limit: 9 },
     });
 
     return {

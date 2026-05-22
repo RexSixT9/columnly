@@ -1,5 +1,5 @@
 import { Link } from 'react-router';
-import { useEditor } from '@tiptap/react'
+import { useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { formatDistanceToNowStrict } from 'date-fns';
 
@@ -51,7 +51,6 @@ export const BlogCard: React.FC<BlogCardProps> = ({
   });
 
   return (
-    
     <Card
       className={cn(
         'group cursor-pointer relative pt-2 h-full @container',
@@ -79,7 +78,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
             {' '}
           </div>
           <Tooltip delayDuration={250}>
-            <TooltipTrigger asChild>
+            <TooltipTrigger>
               {formatDistanceToNowStrict(new Date(publishedAt), {
                 addSuffix: true,
               })}
@@ -95,7 +94,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
 
         <CardTitle
           className={cn(
-            'relative z-20 underline-offset-4 hover:underline leading-tight line-clamp-2',
+            'underline-offset-4 hover:underline leading-tight line-clamp-2',
             size === 'default' && 'text-xl @md:text-2xl',
           )}
         >
@@ -112,7 +111,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
         </CardDescription>
       </CardHeader>
 
-      <CardContent>
+      <CardContent className='px-2'>
         <AspectRatio
           ratio={21 / 9}
           className='rounded-lg overflow-hidden'

@@ -8,6 +8,7 @@ import { RootLayout } from '@/components/layouts/Root';
 import { settingsAction } from './actions/user/settings';
 import { Home } from '@/pages/user/Home';
 import homeLoader from './loaders/user/home';
+import { Blogs } from '@/pages/user/Blogs';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'blogs',
+        Component: Blogs
         
       },
       {

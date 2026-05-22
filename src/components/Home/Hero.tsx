@@ -8,8 +8,8 @@ import { Button } from '@/components/ui/button';
 import type { Variants } from 'motion/react';
 
 const HERO = {
-  headline: 'Discover, Share, and Connect with Your Passion',
-  text: 'Join our vibrant community of enthusiasts and experts. Share your knowledge, discover new insights, and connect with like-minded individuals who share your passion.',
+  headline: 'Discover, Share, and Connect with Columnly',
+  text: 'A blogging platform to share your thoughts and ideas with the world.',
   cta: 'Join Now',
 } as const;
 

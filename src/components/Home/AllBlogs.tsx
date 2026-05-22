@@ -1,12 +1,12 @@
-import {useLoaderData, Link} from 'react-router';
-import {motion} from 'motion/react';
-import {cn} from '@/lib/utils';
+import { useLoaderData, Link } from 'react-router';
+import { motion } from 'motion/react';
+import { cn } from '@/lib/utils';
 
-import {BlogCard} from '@/components/BlogCard';
-import {Button} from '@/components/ui/button';
+import { BlogCard } from '@/components/BlogCard';
+import { Button } from '@/components/ui/button';
 
-import type {Variants} from 'motion/react';
-import type {HomeLoaderResponse} from '@/routes/loaders/user/home';
+import type { Variants } from 'motion/react';
+import type { HomeLoaderResponse } from '@/routes/loaders/user/home';
 
 const listVariants: Variants = {
   to: {
@@ -27,7 +27,7 @@ const itemVariants: Variants = {
   },
 };
 
-export const AllBlogs = ({
+const AllBlogs = ({
   className,
   ...props
 }: React.ComponentProps<'section'>) => {
@@ -57,7 +57,7 @@ export const AllBlogs = ({
           variants={listVariants}
         >
           {allBlogs.blogs.map(
-            ({ slug, banner, title, content, author, publishedAt }, index) => (
+            ({ slug, banner, title, content, author, publishedAt }) => (
               <motion.li
                 key={slug}
                 variants={itemVariants}
@@ -76,11 +76,25 @@ export const AllBlogs = ({
             ),
           )}
         </motion.ul>
-        <motion.div>
-            
+        <motion.div
+          className='flex justify-center mt-8 md:mt-10'
+          initial={{ opacity: 0 }}
+          animate={{
+            opacity: 1,
+            transition: { duration: 0.5, ease: 'backInOut' },
+          }}
+        >
+          <Button
+            asChild
+            variant='default'
+            size='lg'
+          >
+            <Link to='/blogs'>View All Blogs</Link>
+          </Button>
         </motion.div>
       </div>
     </section>
   );
 };
 
+export default AllBlogs;
