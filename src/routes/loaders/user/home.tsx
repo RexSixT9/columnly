@@ -33,7 +33,7 @@ const homeLoader: LoaderFunction = async () => {
         statusText: error.response?.data.code || error.code,
       });
     }
-    throw new Response('An unexpected error occurred', { status: 500 });
+    throw error;
   }
 };
 

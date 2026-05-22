@@ -2,7 +2,6 @@ import { Link } from 'react-router';
 import { Editor } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
 import { formatDistanceToNowStrict } from 'date-fns';
-import { CalendarIcon, UserIcon } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import {
@@ -12,7 +11,11 @@ import {
   CardTitle,
   CardDescription,
 } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from '@/components/ui/tooltip';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 interface BlogCardProps extends React.ComponentProps<'div'> {
@@ -44,6 +47,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
     extensions: [StarterKit],
     content,
     editable: false,
+    autofocus: false,
   });
 
   return (
@@ -61,7 +65,67 @@ export const BlogCard: React.FC<BlogCardProps> = ({
           'gap-2',
           size === 'sm' && 'content-center order-1 ps-4 py-3',
         )}
-      ></CardHeader>
+      >
+        <div className='flex items-center gap-2 text-sm text-muted-foreground font-medium'>
+          <p className='@max-3xs:hidden'>{authorName}</p>
+          <div className='w-1 h-1 bg-muted-foreground/50 rounded-full @max-3xs:hidden'></div>
+          <Tooltip delayDuration={250}>
+            <TooltipTrigger className='sr-only'>
+              {formatDistanceToNowStrict(new Date(publishedAt), {
+                addSuffix: true,
+              })}
+            </TooltipTrigger>
+            <TooltipContent>
+              {new Date(publishedAt).toLocaleString('en-US', {
+                dateStyle: 'long',
+                timeStyle: 'short',
+              })}
+            </TooltipContent>
+          </Tooltip>
+        </div>
+        <Link
+          to={`/blog/${slug}`}
+          className='absolute inset-0 z-10'
+          viewTransition
+        >
+          <CardTitle
+            className={cn(
+              'underline-offset-4 hover:underline leading-tight line-clamp-2',
+              size === 'default' && 'text-xl @md:text-2xl',
+            )}
+          >
+            {title}
+          </CardTitle>
+        </Link>
+        <CardDescription
+          className={cn(
+            'line-clamp-2 text-balanced',
+            size === 'sm' && '@max-2xs:hidden',
+          )}
+        >
+          {editor.getText()}
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Link
+          to={`/blog/${slug}`}
+          className='absolute inset-0 z-10'
+          viewTransition
+        >
+          <AspectRatio
+            ratio={21 / 9}
+            className='rounded-lg overflow-hidden'
+          >
+            <img
+              src={bannerUrl}
+              alt={title}
+              width={bannerWidth}
+              height={bannerHeight}
+              className='object-cover w-full h-full'
+            />
+          </AspectRatio>
+        </Link>
+      </CardContent>
     </Card>
   );
 };
