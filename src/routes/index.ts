@@ -10,8 +10,8 @@ import Home from '@/pages/user/Home';
 import Blogs from '@/pages/user/Blogs';
 import homeLoader from './loaders/user/home';
 import { userBlogLoader } from './loaders/user/blogs';
-import { BlogDetail } from '@/pages/user/BlogDetail';
-import { blogDetailLoader } from './loaders/user/blogDetail';
+import BlogDetail  from '@/pages/user/BlogDetail';
+import blogDetailLoader  from './loaders/user/blogDetail';
 
 const router = createBrowserRouter([
   {

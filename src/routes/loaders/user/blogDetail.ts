@@ -5,7 +5,7 @@ import { columnlyApi } from '@/api';
 import type { LoaderFunction } from 'react-router';
 import { AxiosError } from 'axios';
 
-export const blogDetailLoader: LoaderFunction = async ({ params }) => {
+const blogDetailLoader: LoaderFunction = async ({ params }) => {
   try {
     const slug = params.slug;
     if (!slug) {
@@ -24,3 +24,5 @@ export const blogDetailLoader: LoaderFunction = async ({ params }) => {
     throw error;
   }
 };
+
+export default blogDetailLoader;

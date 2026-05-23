@@ -36,7 +36,7 @@ interface ShareDropdownProps extends DropdownMenuProps {
   blogTitle: string;
 }
 
-export const BlogDetail = () => {
+const BlogDetail = () => {
   const navigate = useNavigate();
   const { blog } = useLoaderData() as { blog: Blog };
 
@@ -113,3 +113,5 @@ export const BlogDetail = () => {
     </Page>
   );
 };
+
+export default BlogDetail;
