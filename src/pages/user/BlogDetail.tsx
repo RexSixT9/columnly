@@ -29,37 +29,51 @@ import {
 
 import type { Blog } from '@/types';
 import type { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
+import { getUsername } from '@/lib/utils';
 
 interface ShareDropdownProps extends DropdownMenuProps {
   blogTitle: string;
 }
 
 export const BlogDetail = () => {
-  const loaderData = useLoaderData();
-  const { title, content } = loaderData;
+  const navigate = useNavigate();
+  const { blog } = useLoaderData() as { blog: Blog };
 
   const editor = useEditor({
     extensions: [StarterKit],
-    content,
+    content: blog.content,
+    editable: false,
+    autofocus: false,
   });
 
   return (
     <Page>
-      <section className='section'>
-        <div className='container'>
-          <Button
-            variant='ghost'
-            size='icon'
-            onClick={() => window.history.back()}
-          >
-            <IconArrowLeft />
-          </Button>
-          <h1 className='text-4xl font-bold mt-4'>{title}</h1>
-          <div className='mt-6'>
-            <EditorContent editor={editor} />
+      <article className='relative container max-w-180 pt-6 pb-0'>
+        <Button
+          variant='ghost'
+          size='icon'
+          onClick={() => navigate(-1)}
+          className='sticky top-22 -ms-16'
+        >
+          <IconArrowLeft />
+        </Button>
+        <h1 className='text-4xl leading-tight font-semibold -mt-10'>
+          {blog.title}
+        </h1>
+
+        <div className='flex items-center gap-3 my-8'>
+          <div className='flex items-center gap-3'>
+            <Avatar
+              name={blog.author.email}
+              size='32'
+              round
+            />
+            <span className='text-sm font-medium'>
+              {getUsername(blog.author)}
+            </span>
           </div>
         </div>
-      </section>
+      </article>
     </Page>
   );
 };

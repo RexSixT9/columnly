@@ -61,7 +61,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({
       {...props}
     >
       <Link
-        to={`/blog/${slug}`}
+        to={`/blogs/${slug}`}
         className='absolute inset-0 z-10'
         aria-label={title}
         viewTransition

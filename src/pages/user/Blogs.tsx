@@ -1,6 +1,6 @@
 import { useLoaderData } from 'react-router';
 import { motion } from 'motion/react';
-import { cn } from '@/lib/utils';
+import { cn, getUsername } from '@/lib/utils';
 
 import { BlogCard } from '@/components/BlogCard';
 import { Page } from '@/components/Page';
@@ -69,7 +69,7 @@ const Blogs = ({ className, ...props }: React.ComponentProps<'section'>) => {
                     title={title}
                     content={content}
                     slug={slug}
-                    authorName={author.username}
+                    authorName={getUsername(author)}
                     publishedAt={publishedAt}
                   />
                 </motion.li>
