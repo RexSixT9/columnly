@@ -7,7 +7,7 @@ import type { Blog, PaginatedResponse } from '@/types';
 
 import { AxiosError } from 'axios';
 
-export const userBlogLoader: LoaderFunction = async ({ request }) => {
+const userBlogLoader: LoaderFunction = async ({ request }) => {
 
   try {
     const url = new URL(request.url);
@@ -29,3 +29,5 @@ export const userBlogLoader: LoaderFunction = async ({ request }) => {
     throw error;
   }
 };
+
+export default userBlogLoader;

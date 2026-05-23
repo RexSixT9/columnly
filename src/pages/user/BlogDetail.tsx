@@ -3,13 +3,12 @@ import { useLoaderData, useNavigate } from 'react-router';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { toast } from 'sonner';
+import Avatar from 'react-avatar';
 
 import { Button } from '@/components/ui/button';
 import { Page } from '@/components/Page';
-import Avatar from 'react-avatar';
 import { Separator } from '@/components/ui/separator';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
-
 import {
   DropdownMenu,
   DropdownMenuContent,
