@@ -23,7 +23,7 @@ const itemVariants: Variants = {
     opacity: 1,
     transition: {
       duration: 1,
-      ease: 'backInOut',
+      ease: 'easeOut',
     },
   },
 };
@@ -60,7 +60,7 @@ const Blogs = ({ className, ...props }: React.ComponentProps<'section'>) => {
               ({ slug, banner, title, content, author, publishedAt }) => (
                 <motion.li
                   key={slug}
-                  variants={listVariants}
+                  variants={itemVariants}
                 >
                   <BlogCard
                     bannerUrl={banner.url}
