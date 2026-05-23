@@ -11,3 +11,9 @@ export const getUsername = (user: User): string => {
 
   return firstName || lastName ? `${firstName} ${lastName}` : username;
 };
+
+export const getReadingTime = (text: string): number => {
+  const wordsPerMinute = 150;
+
+  return Math.ceil(text.split(' ').length / wordsPerMinute);
+};

@@ -9,6 +9,7 @@ import { Page } from '@/components/Page';
 import Avatar from 'react-avatar';
 import { Separator } from '@/components/ui/separator';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,7 +30,7 @@ import {
 
 import type { Blog } from '@/types';
 import type { DropdownMenuProps } from '@radix-ui/react-dropdown-menu';
-import { getUsername } from '@/lib/utils';
+import { getReadingTime, getUsername } from '@/lib/utils';
 
 interface ShareDropdownProps extends DropdownMenuProps {
   blogTitle: string;
@@ -72,6 +73,41 @@ export const BlogDetail = () => {
               {getUsername(blog.author)}
             </span>
           </div>
+
+          <Separator
+            orientation='vertical'
+            className='data-[orientation=vertical]:h-1 data-[orientation=vertical]:w-1 rounded-full'
+          />
+          <div className='text-muted-foreground'>
+            {getReadingTime(editor.getText() || '')} min read
+          </div>
+          <Separator
+            orientation='vertical'
+            className='data-[orientation=vertical]:h-1 data-[orientation=vertical]:w-1 rounded-full'
+          />
+          <div className='text-muted-foreground'>
+            {new Date(blog.publishedAt).toLocaleDateString('en-US', {
+              dateStyle: 'medium',
+            })}
+          </div>
+        </div>
+
+        <div className='flex items-center gap-2 my-2'>
+          <Button
+            variant='outline'
+            size='sm'
+          >
+            <IconThumbUp className='me-1' />
+            Like
+          </Button>
+
+          <Button
+            variant='outline'
+            size='sm'
+          >
+            <IconMessage className='me-1' />
+            Comment
+          </Button>
         </div>
       </article>
     </Page>

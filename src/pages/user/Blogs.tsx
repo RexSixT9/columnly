@@ -60,7 +60,7 @@ const Blogs = ({ className, ...props }: React.ComponentProps<'section'>) => {
               ({ slug, banner, title, content, author, publishedAt }) => (
                 <motion.li
                   key={slug}
-                  variants={itemVariants}
+                  variants={listVariants}
                 >
                   <BlogCard
                     bannerUrl={banner.url}
