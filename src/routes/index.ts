@@ -6,9 +6,11 @@ import { loginAction } from './actions/auth/login';
 import { refreshTokenLoader } from './loaders/refreshToken';
 import { RootLayout } from '@/components/layouts/Root';
 import { settingsAction } from './actions/user/settings';
-import { Home } from '@/pages/user/Home';
+import Home from '@/pages/user/Home';
+import Blogs from '@/pages/user/Blogs';
 import homeLoader from './loaders/user/home';
-import { Blogs } from '@/pages/user/Blogs';
+import { userBlogLoader } from './loaders/user/blogs';
+import { BlogDetail } from '@/pages/user/BlogDetail';
 
 const router = createBrowserRouter([
   {
@@ -36,11 +38,12 @@ const router = createBrowserRouter([
       },
       {
         path: 'blogs',
-        Component: Blogs
-        
+        Component: Blogs,
+        loader: userBlogLoader,
       },
       {
         path: 'blogs/:slug',
+        Component: BlogDetail,
       },
     ],
   },

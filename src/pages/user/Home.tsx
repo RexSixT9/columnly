@@ -3,7 +3,7 @@ import { Hero } from '@/components/Home/Hero';
 import RecentBlogs from '@/components/Home/RecentBlogs';
 import { Page } from '@/components/Page';
 
-export const Home = () => {
+ const Home = () => {
   return (
     <Page>
       <Hero />
@@ -12,3 +12,5 @@ export const Home = () => {
     </Page>
   );
 };
+
+export default Home;
