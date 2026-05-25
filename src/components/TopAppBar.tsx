@@ -8,6 +8,7 @@ import { ThemeToggle } from './ThemeToggle';
 
 import { PlusIcon } from 'lucide-react';
 import { AppBreadcrumbs } from './AppBreadcrumbs';
+import { TopBarProgress } from './TopBarProgress';
 
 const TopAppBar = ({ className, ...props }: React.ComponentProps<'header'>) => {
   const { isMobile } = useSidebar();
@@ -32,6 +33,24 @@ const TopAppBar = ({ className, ...props }: React.ComponentProps<'header'>) => {
         />
         <AppBreadcrumbs />
       </div>
+
+      <div className='flex items-center gap-2 ms-auto'>
+        {location.pathname !== '/admin/blogs/create' && (
+          <Button asChild>
+            <Link
+              to='/admin/blogs/create'
+              viewTransition
+            >
+              <PlusIcon className='me-1' />
+              Create Blog
+            </Link>
+          </Button>
+        )}
+
+        <ThemeToggle />
+      </div>
+
+      {isLoading && <TopBarProgress />}
     </header>
   );
 };

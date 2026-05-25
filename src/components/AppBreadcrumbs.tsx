@@ -21,40 +21,55 @@ type HandleType = {
       }) => string);
 };
 
-export const AppBreadcrumbs = () => {
-  const matches = useMatches() as UIMatch<HandleType>[];
+const AppBreadcrumbs = () => {
+  const matches = useMatches() as UIMatch<unknown, HandleType>[];
   const location = useLocation();
 
-    const breadcrumbs = useMemo(() => {
-      return matches
-        .filter((match): match is UIMatch<HandleType> => !!match.handle?.breadcrumb)
+  const crumbs = useMemo(
+    () =>
+      matches
+        .filter((match) => match.handle?.breadcrumb)
         .map((match) => {
-          const breadcrumb = match.handle?.breadcrumb;
-          if (typeof breadcrumb === 'function') {
-            return breadcrumb({
-              params: match.params,
-              data: match.data,
-            });
-          }
-          return breadcrumb;
-        });
-    }, [matches, location]);
+          const { handle, params, data } = match;
 
-    if (breadcrumbs.length === 0) return null;
+          const label =
+            typeof handle.breadcrumb === 'function'
+              ? handle.breadcrumb({ params, data })
+              : handle.breadcrumb;
 
+          return {
+            label,
+            href: match.pathname,
+          };
+        }),
+    [matches],
+  );
 
-    return (
-      <Breadcrumb>
-        <BreadcrumbList>
-          {breadcrumbs.map((crumb, index) => (
-            <Fragment key={index}>
-              <BreadcrumbItem>
-                <BreadcrumbLink href={location.pathname}>{crumb}</BreadcrumbLink>
-              </BreadcrumbItem>
-              {index < breadcrumbs.length - 1 && <BreadcrumbSeparator />}
-            </Fragment>
-          ))}
-        </BreadcrumbList>
-      </Breadcrumb>
-    );
-  };
+  return (
+    <Breadcrumb>
+      <BreadcrumbList>
+        {crumbs.map((crumb, index) => (
+          <Fragment key={crumb.href}>
+            <BreadcrumbItem className='hidden md:block'>
+              {crumb.href === location.pathname ? (
+                <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
+              ) : (
+                <BreadcrumbLink asChild>
+                  <Link
+                    to={crumb.href}
+                    viewTransition
+                  >
+                    {crumb.label}
+                  </Link>
+                </BreadcrumbLink>
+              )}
+            </BreadcrumbItem>
+            {index < crumbs.length - 1 && <BreadcrumbSeparator />}
+          </Fragment>
+        ))}
+      </BreadcrumbList>
+    </Breadcrumb>
+  );
+};
+
+export { AppBreadcrumbs };
