@@ -55,22 +55,40 @@ const router = createBrowserRouter([
     Component: AdminLayout,
     children: [
       {
-        path: 'blogs',
+        path: 'dashboard',
+        handle: {
+          breadcrumb: 'Dashboard',
+        },
       },
       {
-        path: 'dashboard',
+        path: 'blogs',
+        handle: {
+          breadcrumb: 'Blogs',
+        },
       },
       {
         path: 'blogs/create',
+        handle: {
+          breadcrumb: 'Create Blog',
+        },
       },
       {
         path: 'blogs/:slug/edit',
+        handle: {
+          breadcrumb: 'Edit Blog',
+        },
       },
       {
         path: 'comments',
+        handle: {
+          breadcrumb: 'Comments',
+        },
       },
       {
         path: 'users',
+        handle: {
+          breadcrumb: 'Users',
+        },
       },
     ],
   },

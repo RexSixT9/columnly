@@ -52,6 +52,7 @@ export const AppSidebar = ({
     <Sidebar
       {...props}
       variant='inset'
+      collapsible='icon'
     >
       <SidebarHeader>
         <SidebarMenu>

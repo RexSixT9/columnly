@@ -7,6 +7,7 @@ import { Button } from './ui/button';
 import { ThemeToggle } from './ThemeToggle';
 
 import { PlusIcon } from 'lucide-react';
+import { AppBreadcrumbs } from './AppBreadcrumbs';
 
 const TopAppBar = ({ className, ...props }: React.ComponentProps<'header'>) => {
   const { isMobile } = useSidebar();
@@ -29,6 +30,7 @@ const TopAppBar = ({ className, ...props }: React.ComponentProps<'header'>) => {
           orientation='vertical'
           className='mr-2 data-[orientation=vertical]:h-4'
         />
+        <AppBreadcrumbs />
       </div>
     </header>
   );
