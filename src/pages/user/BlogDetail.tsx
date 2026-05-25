@@ -35,22 +35,81 @@ interface ShareDropdownProps extends DropdownMenuProps {
   blogTitle: string;
 }
 
-const BlogDetail = () => {
+export const ShareDropdown = ({
+  blogTitle,
+  children,
+  ...props
+}: ShareDropdownProps) => {
+  const blogUrl = window.location.href;
+  const shareText = `Check out this blog post: "${blogTitle}" - ${blogUrl}`;
+
+  const SHARE_LINKS = useMemo(() => {
+    return {
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(blogUrl)}`,
+      twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`,
+      linkedin: `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(blogUrl)}&title=${encodeURIComponent(blogTitle)}`,
+    };
+  }, [blogUrl, blogTitle, shareText]);
+
+  const handleCopy = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(blogUrl);
+      toast.success('Blog URL copied to clipboard');
+    } catch (err) {
+      toast.error('Failed to copy URL');
+      console.error('Failed to copy URL:', err);
+    }
+  }, [blogUrl]);
+
+  const shareOnSocial = useCallback((platformUrl: string) => {
+    window.open(platformUrl, '_blank', 'noopener,noreferrer');
+  }, []);
+
+  return (
+    <DropdownMenu {...props}>
+      <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
+      <DropdownMenuContent className='min-w-40'>
+        <DropdownMenuItem onSelect={() => shareOnSocial(SHARE_LINKS.facebook)}>
+          <IconBrandFacebook className='me-2' />
+          Facebook
+        </DropdownMenuItem>
+        <DropdownMenuItem onSelect={() => shareOnSocial(SHARE_LINKS.twitter)}>
+          <IconBrandTwitter className='me-2' />
+          Twitter
+        </DropdownMenuItem>
+        <DropdownMenuItem onSelect={() => shareOnSocial(SHARE_LINKS.linkedin)}>
+          <IconBrandLinkedin className='me-2' />
+          LinkedIn
+        </DropdownMenuItem>
+        <DropdownMenuItem onSelect={handleCopy}>
+          <IconLink className='me-2' />
+          Copy Link
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
+export const BlogDetail = () => {
   const navigate = useNavigate();
   const { blog } = useLoaderData() as { blog: Blog };
 
   const editor = useEditor({
     extensions: [StarterKit],
-    content: blog.content,
+    content: blog?.content ?? '',
     editable: false,
     autofocus: false,
   });
 
+  const readingTime = useMemo(() => {
+    return getReadingTime(editor?.getText() ?? '');
+  }, [editor]);
+
   return (
     <Page>
-      <article className='relative container max-w-180 pt-6 pb-0'>
+      <article className='relative container max-w-180 pt-6 pb-12'>
         <Button
-          variant='ghost'
+          variant='outline'
           size='icon'
           onClick={() => navigate(-1)}
           className='sticky top-22 -ms-16'
@@ -77,9 +136,7 @@ const BlogDetail = () => {
             orientation='vertical'
             className='data-[orientation=vertical]:h-1 data-[orientation=vertical]:w-1 rounded-full'
           />
-          <div className='text-muted-foreground'>
-            {getReadingTime(editor.getText() || '')} min read
-          </div>
+          <div className='text-muted-foreground'>{readingTime} min read</div>
           <Separator
             orientation='vertical'
             className='data-[orientation=vertical]:h-1 data-[orientation=vertical]:w-1 rounded-full'
@@ -91,26 +148,46 @@ const BlogDetail = () => {
           </div>
         </div>
 
+        {/* <Separator className='opacity-40' /> */}
         <div className='flex items-center gap-2 my-2'>
-          <Button
-            variant='outline'
-            size='sm'
-          >
-            <IconThumbUp className='me-1' />
-            Like
+          <Button variant='outline'>
+            <IconThumbUp />
+            {blog.likesCount || 0}
           </Button>
 
-          <Button
-            variant='outline'
-            size='sm'
-          >
-            <IconMessage className='me-1' />
-            Comment
+          <Button variant='outline'>
+            <IconMessage />
+            {blog.commentsCount || 0}
           </Button>
+
+          <ShareDropdown blogTitle={blog.title}>
+            <Button
+              variant='outline'
+              className='ms-auto'
+            >
+              <IconShare />
+              Share{' '}
+            </Button>
+          </ShareDropdown>
         </div>
+        <Separator className='opacity-30' />
+
+        <div className='my-8'>
+          <AspectRatio
+            ratio={21 / 9}
+            className='overflow-hidden rounded-xl bg-border'
+          >
+            <img
+              src={blog.banner.url}
+              width={blog.banner.width}
+              height={blog.banner.height}
+              alt={`Banner image for ${blog.title}`}
+              className='w-full h-full object-cover'
+            />
+          </AspectRatio>
+        </div>
+        <EditorContent editor={editor} />
       </article>
     </Page>
   );
 };
-
-export default BlogDetail;

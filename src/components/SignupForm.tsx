@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 
 import { Link, useFetcher, useNavigate } from 'react-router';
@@ -107,15 +106,18 @@ export const SignupForm = ({
         );
       });
     }
-  }, [signupResponse]);
+  }, [signupResponse, form, navigate]);
 
-  const onSubmit = useCallback(async (value: z.infer<typeof formSchema>) => {
-    await fetcher.submit(value, {
-      method: 'post',
-      action: '/signup',
-      encType: 'application/json',
-    });
-  }, []);
+  const onSubmit = useCallback(
+    async (value: z.infer<typeof formSchema>) => {
+      await fetcher.submit(value, {
+        method: 'post',
+        action: '/signup',
+        encType: 'application/json',
+      });
+    },
+    [fetcher],
+  );
 
   return (
     <div

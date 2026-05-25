@@ -9,7 +9,7 @@ export function cn(...inputs: ClassValue[]) {
 export const getUsername = (user: User): string => {
   const { firstName, lastName, username } = user;
 
-  return firstName || lastName ? `${firstName} ${lastName}` : username;
+  return firstName || lastName ? [firstName, lastName].join(' ') : username;
 };
 
 export const getReadingTime = (text: string): number => {

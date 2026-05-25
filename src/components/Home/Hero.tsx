@@ -8,9 +8,9 @@ import { Button } from '@/components/ui/button';
 import type { Variants } from 'motion/react';
 
 const HERO = {
-  headline: 'Discover, Share, and Connect with Columnly',
-  text: 'A blogging platform to share your thoughts and ideas with the world.',
-  cta: 'Join Now',
+  headline: 'Discover, Share, and Connect on Columnly',
+  text: 'Join a vibrant community of writers and readers. Explore insightful articles, share your thoughts, and connect with like-minded individuals.',
+  cta: 'Get Started',
 } as const;
 
 const containerVariants: Variants = {
