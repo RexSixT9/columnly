@@ -1,5 +1,5 @@
 import type { User } from '@/types';
-export type UserResponse = Pick<User, 'username' | 'email' | 'role'>;
+export type UserResponse = Pick<User, 'username' | 'email' | 'role' | 'firstName' | 'lastName'>;
 
 import { useState } from 'react';
 

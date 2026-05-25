@@ -74,8 +74,8 @@ const ProfileSettingsForm = () => {
   }, [data]);
 
   const defaultValues = {
-    firstName: '',
-    lastName: '',
+    firstName: user?.firstName || '',
+    lastName: user?.lastName || '',
     email: user?.email || '',
     username: user?.username || '',
   };

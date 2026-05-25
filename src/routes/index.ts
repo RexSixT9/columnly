@@ -12,6 +12,7 @@ import { BlogDetail } from '@/pages/user/BlogDetail';
 import homeLoader from './loaders/user/home';
 import userBlogLoader from './loaders/user/blogs';
 import blogDetailLoader from './loaders/user/blogDetail';
+import AdminLayout from '@/components/layouts/AdminLayout';
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/admin',
+    Component: AdminLayout,
     children: [
       {
         path: 'blogs',
