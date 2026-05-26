@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router';
 import { cn } from '@/lib/utils';
 
-import { SidebarTrigger, useSidebar } from './ui/sidebar';
+import { SidebarTrigger } from './ui/sidebar';
 import { Separator } from './ui/separator';
 import { Button } from './ui/button';
 import { ThemeToggle } from './ThemeToggle';
@@ -11,7 +11,6 @@ import { AppBreadcrumbs } from './AppBreadcrumbs';
 import { TopBarProgress } from './TopBarProgress';
 
 const TopAppBar = ({ className, ...props }: React.ComponentProps<'header'>) => {
-  const { isMobile } = useSidebar();
   const location = useLocation();
   const navigate = useNavigate();
 

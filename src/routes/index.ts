@@ -13,6 +13,10 @@ import homeLoader from './loaders/user/home';
 import userBlogLoader from './loaders/user/blogs';
 import blogDetailLoader from './loaders/user/blogDetail';
 import AdminLayout from '@/components/layouts/AdminLayout';
+import adminLoader from './loaders/admin/admin';
+import { RooterErrorBoundary } from '@/pages/error/Root';
+import { Dashboard } from '@/pages/admin/Dashboard';
+import dashboardLoader from './loaders/admin/dashboard';
 
 const router = createBrowserRouter([
   {
@@ -53,12 +57,14 @@ const router = createBrowserRouter([
   {
     path: '/admin',
     Component: AdminLayout,
+    loader: adminLoader,
+    ErrorBoundary: RooterErrorBoundary,
     children: [
       {
         path: 'dashboard',
-        handle: {
-          breadcrumb: 'Dashboard',
-        },
+        Component: Dashboard,
+        loader: dashboardLoader,
+        handle: { breadcrumb: 'Dashboard' },  
       },
       {
         path: 'blogs',
