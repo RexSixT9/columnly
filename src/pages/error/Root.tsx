@@ -7,7 +7,7 @@ import {
 } from 'react-router';
 import { Button } from '@/components/ui/button';
 
-export const RooterErrorBoundary = () => {
+export const RootErrorBoundary = () => {
   const error = useRouteError();
   const navigate = useNavigate();
   const location = useLocation();
@@ -17,7 +17,7 @@ export const RooterErrorBoundary = () => {
       error.status === 401 && error.data.includes('token expired');
 
     if (tokenExpired) {
-      return <Navigate to={`/refresh-token?redirect=${location.pathname}`} />;
+      return <Navigate to={`/refresh-token?redirect=${location.pathname}`} replace />;
     }
     return (
       <div className='h-dvh grid place-content-center place-items-center gap-4'>

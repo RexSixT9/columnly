@@ -16,6 +16,7 @@ import { useUser } from '@/hooks/useUser';
 import { TextIcon, UserRoundIcon, MessageSquareIcon } from 'lucide-react';
 
 import type { DashboardData } from '@/routes/loaders/admin/dashboard';
+import BlogTable, { columns } from '@/components/BlogTable';
 
 export const Dashboard = () => {
   const loaderData = useLoaderData();
@@ -39,6 +40,7 @@ export const Dashboard = () => {
             {loaderData.blogsCount}
           </CardContent>
         </Card>
+
         <Card className='gap-4 py-4'>
           <CardHeader className='px-4 flex items-center gap-2.5'>
             <div className='bg-muted text-muted-foreground max-w-max p-2 rounded-lg'>
@@ -63,6 +65,30 @@ export const Dashboard = () => {
           </CardContent>
         </Card>
       </div>
+
+      <Card className='gap-4 py-4'>
+        <CardHeader className='px-4 flex items-center gap-2.5'>
+          <div className='bg-muted text-muted-foreground max-w-max p-2 rounded-lg'>
+            <TextIcon size={18} />
+          </div>
+          <CardTitle className='text-lg font-normal'>Recent Blogs</CardTitle>
+          <CardAction className='ms-auto'>
+            <Button
+              asChild
+              size='sm'
+              variant='link'
+            >
+              <Link to='/admin/blogs'>View All</Link>
+            </Button>
+          </CardAction>
+        </CardHeader>
+        <CardContent className='px-4 '>
+          <BlogTable
+            data={loaderData.blogs}
+            columns={columns}
+          />
+        </CardContent>
+      </Card>
     </div>
   );
 };

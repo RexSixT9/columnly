@@ -14,7 +14,7 @@ import userBlogLoader from './loaders/user/blogs';
 import blogDetailLoader from './loaders/user/blogDetail';
 import AdminLayout from '@/components/layouts/AdminLayout';
 import adminLoader from './loaders/admin/admin';
-import { RooterErrorBoundary } from '@/pages/error/Root';
+import { RootErrorBoundary } from '@/pages/error/Root';
 import { Dashboard } from '@/pages/admin/Dashboard';
 import dashboardLoader from './loaders/admin/dashboard';
 
@@ -58,13 +58,13 @@ const router = createBrowserRouter([
     path: '/admin',
     Component: AdminLayout,
     loader: adminLoader,
-    ErrorBoundary: RooterErrorBoundary,
+    ErrorBoundary: RootErrorBoundary,
     children: [
       {
         path: 'dashboard',
         Component: Dashboard,
         loader: dashboardLoader,
-        handle: { breadcrumb: 'Dashboard' },  
+        handle: { breadcrumb: 'Dashboard' },
       },
       {
         path: 'blogs',
