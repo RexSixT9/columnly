@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from 'react-router';
+import { Link, useLocation } from 'react-router';
 import { cn } from '@/lib/utils';
 
 import { SidebarTrigger } from './ui/sidebar';
@@ -11,10 +11,10 @@ import { AppBreadcrumbs } from './AppBreadcrumbs';
 import { TopBarProgress } from './TopBarProgress';
 
 const TopAppBar = ({ className, ...props }: React.ComponentProps<'header'>) => {
-  const location = useLocation();
-  const navigate = useNavigate();
 
-  const isLoading = navigation.state === 'loading';
+  const location = useLocation();
+
+  const isLoading = false;
 
   return (
     <header

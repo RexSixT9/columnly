@@ -40,7 +40,7 @@ const dashboardLoader: LoaderFunction = async () => {
         Authorization: `Bearer ${accessToken}`,
       },
       params: {
-        limit: 1,
+        limit: 5,
       },
     });
 

@@ -21,7 +21,17 @@ export const settingsAction: ActionFunction = async ({ request }) => {
 
     const responseData = response.data;
 
-    localStorage.setItem('user', JSON.stringify(responseData.user));
+    // Store only non-sensitive user fields in localStorage
+    const respUser = responseData.user || {};
+    const safeUser = {
+      username: respUser.username,
+      email: respUser.email,
+      role: respUser.role,
+      firstName: respUser.firstName,
+      lastName: respUser.lastName,
+    };
+
+    localStorage.setItem('user', JSON.stringify(safeUser));
 
     return {
       ok: true,

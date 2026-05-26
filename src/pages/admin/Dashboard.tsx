@@ -27,41 +27,39 @@ export const Dashboard = () => {
     <div className='container p-4 space-y-4'>
       <h2 className='text-2xl font-semibold'>Dashboard</h2>
 
-      <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
-        // Blogs Card
+      <div className='grid grid-cols-1 lg:grid-cols-3 gap-4'>
         <Card className='gap-4 py-4'>
           <CardHeader className='px-4 flex items-center gap-2.5'>
             <div className='bg-muted text-muted-foreground max-w-max p-2 rounded-lg'>
               <TextIcon size={18} />
             </div>
-            <CardTitle className='text-sm font-medium'>Blogs</CardTitle>
+            <CardTitle className='text-lg font-normal'>Blogs</CardTitle>
           </CardHeader>
           <CardContent className='px-4 text-4xl tracking-wider'>
             {loaderData.blogsCount}
           </CardContent>
         </Card>
-        // Users Card
         <Card className='gap-4 py-4'>
           <CardHeader className='px-4 flex items-center gap-2.5'>
             <div className='bg-muted text-muted-foreground max-w-max p-2 rounded-lg'>
               <UserRoundIcon size={18} />
             </div>
-            <CardTitle className='text-sm font-medium'>Users</CardTitle>
+            <CardTitle className='text-lg font-normal'>Users</CardTitle>
           </CardHeader>
           <CardContent className='px-4 text-4xl tracking-wider'>
             {loaderData.usersCount}
           </CardContent>
         </Card>
-        // Messages Card
+
         <Card className='gap-4 py-4'>
           <CardHeader className='px-4 flex items-center gap-2.5'>
             <div className='bg-muted text-muted-foreground max-w-max p-2 rounded-lg'>
               <MessageSquareIcon size={18} />
             </div>
-            <CardTitle className='text-sm font-medium'>Messages</CardTitle>
+            <CardTitle className='text-lg font-normal'>Comments</CardTitle>
           </CardHeader>
           <CardContent className='px-4 text-4xl tracking-wider'>
-            {loaderData.messagesCount}
+            {loaderData.commentsCount}
           </CardContent>
         </Card>
       </div>
