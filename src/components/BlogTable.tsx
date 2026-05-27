@@ -52,7 +52,13 @@ import {
 const MotionTableBody = motion.create(TableBody);
 const MotionTableRow = motion.create(TableRow);
 
-import { MoreHorizontalIcon, Loader2Icon, PencilIcon } from 'lucide-react';
+import {
+  MoreHorizontalIcon,
+  Loader2Icon,
+  PencilIcon,
+  Send,
+  Trash2Icon,
+} from 'lucide-react';
 
 import type { Blog, User } from '@/types';
 import type { ColumnDef } from '@tanstack/react-table';
@@ -107,7 +113,7 @@ const BlogActionDropdown = ({ blog }: { blog: Blog }) => {
             viewTransition
             className='flex items-center gap-2'
           >
-            <PencilIcon />
+            <PencilIcon className='w-4 h-4' />
             Edit
           </Link>
         </DropdownMenuItem>
@@ -120,7 +126,11 @@ const BlogActionDropdown = ({ blog }: { blog: Blog }) => {
               onSelect={(e) => e.preventDefault()}
               disabled={isUpdating}
             >
-              {isUpdating && <Loader2Icon className='animate-spin' />}
+              {isPublished ? (
+                <Send className='w-4 h-4' />
+              ) : (
+                <Send className='w-4 h-4' />
+              )}
               {isPublished ? 'Unpublish' : 'Publish'}
             </DropdownMenuItem>
           </AlertDialogTrigger>
@@ -139,11 +149,62 @@ const BlogActionDropdown = ({ blog }: { blog: Blog }) => {
               <AlertDialogCancel>Cancel</AlertDialogCancel>
               <AlertDialogAction
                 onClick={() => {
-                  // Handle publish/unpublish logic here
+                  const formData = new FormData();
+                  formData.append(
+                    'status',
+                    isPublished ? 'draft' : 'published',
+                  );
+
+                  fetcher.submit(formData, {
+                    method: 'PUT',
+                    action: `/admin/blogs/${blog.slug}/edit`,
+                    encType: 'multipart/form-data',
+                  });
                 }}
               >
+                <Send className='w-4 h-4' />
                 {isUpdating && <Loader2Icon className='animate-spin' />}
                 {isPublished ? 'Unpublish' : 'Publish'}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+
+        <DropdownMenuSeparator />
+
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <DropdownMenuItem
+              variant='destructive'
+              onSelect={(e) => e.preventDefault()}
+              disabled={isDeleting}
+            >
+              <Trash2Icon className='w-4 h-4' />
+              Delete
+            </DropdownMenuItem>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Delete Blog</AlertDialogTitle>
+              <AlertDialogDescription>
+                Are you sure you want to delete this blog? This action cannot be
+                undone.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={() => {
+                  const data = { blogId: blog._id };
+                  fetcher.submit(data, {
+                    action: '/admin/blogs',
+                    method: 'DELETE',
+                    encType: 'application/json',
+                  });
+                }}
+              >
+                <Trash2Icon className='w-4 h-4' />
+                Delete
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
@@ -265,10 +326,10 @@ export const columns: ColumnDef<Blog>[] = [
   },
 ];
 
-const BlogTable = <TData, TValue>({
+export function BlogTable<TData, TValue>({
   columns,
   data,
-}: BlogTableProps<TData, TValue>) => {
+}: BlogTableProps<TData, TValue>) {
   const table = useReactTable({
     columns,
     data,
