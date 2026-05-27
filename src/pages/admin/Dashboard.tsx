@@ -128,7 +128,7 @@ export const Dashboard = () => {
                     blog={blog}
                     createdAt={createdAt}
                   />
-                  {index < arr.length - 1 && <Separator className='my-2' />}
+                  {index < arr.length - 1 && <Separator className='my-1' />}
                 </Fragment>
               ),
             )}

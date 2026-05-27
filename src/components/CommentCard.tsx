@@ -35,7 +35,7 @@ export const CommentCard = ({
     <div className='@container'>
       <div className='group flex flex-col items-start gap-4 p-4 rounded-xl hover:bg-accent/25 @md:flex-row'>
         <Avatar
-          email={user?.email}
+          email={user?.username}
           size='40'
           round
         />
