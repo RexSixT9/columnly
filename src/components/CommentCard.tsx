@@ -1,7 +1,6 @@
 import { Link } from 'react-router';
 import { formatDistanceToNowStrict } from 'date-fns';
 import Avatar from 'react-avatar';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import {
@@ -33,7 +32,7 @@ export const CommentCard = ({
   likesCount,
 }: CommentCardProps) => {
   return (
-    <div className='@container '>
+    <div className='@container'>
       <div className='group flex flex-col items-start gap-4 p-4 rounded-xl hover:bg-accent/25 @md:flex-row'>
         <Avatar
           email={user?.email}
@@ -124,10 +123,10 @@ export const CommentCard = ({
 
             <Button
               variant='ghost'
-              className='ms-auto @max-3xl:hidden'
+              className='@3xl:invisible @xl:group-hover:visible @xl:group-focus-visible:visible'
               asChild
             >
-              <Link to={`/blogs/${blog.slug}`}>
+              <Link to={`/blogs/${blog.slug}`} viewTransition>
                 <span className='@md:hidden'>Go to blog</span>
                 <SquareArrowOutUpRightIcon />
               </Link>

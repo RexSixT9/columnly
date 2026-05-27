@@ -1,4 +1,4 @@
-import { useLocation, Link, useLoaderData } from 'react-router';
+import { Link, useLoaderData } from 'react-router';
 import { Fragment } from 'react';
 import {
   Card,
@@ -8,22 +8,25 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import TopAppBar from '@/components/TopAppBar';
 import { Separator } from '@/components/ui/separator';
 
 import { useUser } from '@/hooks/useUser';
 
-import { TextIcon, UserRoundIcon, MessageSquareIcon } from 'lucide-react';
+import {
+  TextIcon,
+  UserRoundIcon,
+  MessageSquareIcon,
+  UserIcon,
+} from 'lucide-react';
 
-import type { DashboardData } from '@/routes/loaders/admin/dashboard';
+import type { User, Blog } from '@/types';
 import BlogTable, { columns } from '@/components/BlogTable';
 import { CommentCard } from '@/components/CommentCard';
+import UserCard from '@/components/UserCard';
 
 export const Dashboard = () => {
   const loaderData = useLoaderData();
   const loggedInUser = useUser();
-
-  console.log('Dashboard loader data:', loaderData);
 
   return (
     <div className='container p-4 space-y-4'>
@@ -91,7 +94,7 @@ export const Dashboard = () => {
         </CardContent>
       </Card>
 
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 xl:grid-cols-[2fr_1fr]'>
+      <div className='grid grid-cols-1 gap-4 xl:grid-cols-[2fr_1fr]'>
         <Card className='gap-4 py-4'>
           <CardHeader className='px-4 flex items-center gap-2.5'>
             <div className='bg-muted text-muted-foreground max-w-max p-2 rounded-lg'>
@@ -111,7 +114,7 @@ export const Dashboard = () => {
             </CardAction>
           </CardHeader>
           <CardContent className='px-4 '>
-            {loaderData.comments.map(
+            {loaderData.comments?.map(
               (
                 { _id, content, likesCount, user, blog, createdAt },
                 index,
@@ -127,6 +130,51 @@ export const Dashboard = () => {
                   />
                   {index < arr.length - 1 && <Separator className='my-2' />}
                 </Fragment>
+              ),
+            )}
+          </CardContent>
+        </Card>
+
+        <Card className='gap-4 py-4'>
+          <CardHeader className='px-4 flex items-center gap-2.5'>
+            <div className='bg-muted text-muted-foreground max-w-max p-2 rounded-lg'>
+              <UserIcon size={18} />
+            </div>
+            <CardTitle className='text-lg font-normal'>Latest Users</CardTitle>
+            <CardAction className='ms-auto'>
+              <Button
+                asChild
+                size='sm'
+                variant='link'
+              >
+                <Link to='/admin/users'>View All</Link>
+              </Button>
+            </CardAction>
+          </CardHeader>
+
+          <CardContent className='px-4 '>
+            {loaderData.users?.map(
+              ({
+                _id,
+                username,
+                email,
+                firstName,
+                lastName,
+                role,
+                createdAt,
+                loggedInUser,
+              }) => (
+                <UserCard
+                  key={_id}
+                  userId={_id}
+                  username={username}
+                  email={email}
+                  firstName={firstName}
+                  lastName={lastName}
+                  role={role}
+                  createdAt={createdAt}
+                  loggedInUser={loggedInUser}
+                />
               ),
             )}
           </CardContent>
