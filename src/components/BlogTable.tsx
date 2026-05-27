@@ -235,10 +235,10 @@ export const columns: ColumnDef<Blog>[] = [
           <figure className='shrink-0 w-30 h-17 rounded-md overflow-hidden'>
             <img
               className='w-full h-full object-cover'
-              src={blog.banner.url}
               alt={blog.title}
               width={blog.banner.width}
               height={blog.banner.height}
+              src={blog.banner.url}
             />
           </figure>
 
@@ -326,10 +326,10 @@ export const columns: ColumnDef<Blog>[] = [
   },
 ];
 
-export function BlogTable<TData, TValue>({
+const BlogTable = <TData, TValue>({
   columns,
   data,
-}: BlogTableProps<TData, TValue>) {
+}: BlogTableProps<TData, TValue>) => {
   const table = useReactTable({
     columns,
     data,
@@ -397,6 +397,6 @@ export function BlogTable<TData, TValue>({
       </MotionTableBody>
     </Table>
   );
-};
+}
 
 export default BlogTable;

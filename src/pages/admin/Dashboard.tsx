@@ -17,6 +17,7 @@ import { TextIcon, UserRoundIcon, MessageSquareIcon } from 'lucide-react';
 
 import type { DashboardData } from '@/routes/loaders/admin/dashboard';
 import BlogTable, { columns } from '@/components/BlogTable';
+import { CommentCard } from '@/components/CommentCard';
 
 export const Dashboard = () => {
   const loaderData = useLoaderData();
@@ -89,6 +90,48 @@ export const Dashboard = () => {
           />
         </CardContent>
       </Card>
+
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 xl:grid-cols-[2fr_1fr]'>
+        <Card className='gap-4 py-4'>
+          <CardHeader className='px-4 flex items-center gap-2.5'>
+            <div className='bg-muted text-muted-foreground max-w-max p-2 rounded-lg'>
+              <MessageSquareIcon size={18} />
+            </div>
+            <CardTitle className='text-lg font-normal'>
+              Recent Comments
+            </CardTitle>
+            <CardAction className='ms-auto'>
+              <Button
+                asChild
+                size='sm'
+                variant='link'
+              >
+                <Link to='/admin/comments'>View All</Link>
+              </Button>
+            </CardAction>
+          </CardHeader>
+          <CardContent className='px-4 '>
+            {loaderData.comments.map(
+              (
+                { _id, content, likesCount, user, blog, createdAt },
+                index,
+                arr,
+              ) => (
+                <Fragment key={_id}>
+                  <CommentCard
+                    content={content}
+                    likesCount={likesCount}
+                    user={user}
+                    blog={blog}
+                    createdAt={createdAt}
+                  />
+                  {index < arr.length - 1 && <Separator className='my-2' />}
+                </Fragment>
+              ),
+            )}
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };
