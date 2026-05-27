@@ -49,9 +49,7 @@ const UserCard = ({
   loggedInUser,
   onUserDeleteSuccess,
 }: props) => {
-    
   const fetcher = useFetcher();
-
 
   return (
     <Card className='group py-4'>

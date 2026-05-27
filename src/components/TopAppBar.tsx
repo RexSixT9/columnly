@@ -11,7 +11,6 @@ import { AppBreadcrumbs } from './AppBreadcrumbs';
 import { TopBarProgress } from './TopBarProgress';
 
 const TopAppBar = ({ className, ...props }: React.ComponentProps<'header'>) => {
-
   const location = useLocation();
 
   const isLoading = false;
@@ -45,10 +44,8 @@ const TopAppBar = ({ className, ...props }: React.ComponentProps<'header'>) => {
             </Link>
           </Button>
         )}
-
         <ThemeToggle />
       </div>
-
       {isLoading && <TopBarProgress />}
     </header>
   );

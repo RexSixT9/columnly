@@ -70,7 +70,7 @@ export const Header = ({
         <div className='flex items-center gap-1 ms-auto'>
           <ThemeToggle />
           <Button
-            variant='outline'
+            variant='ghost'
             size='icon'
             className='ml-auto md:hidden'
             onClick={() => setIsMenuOpen((prev) => !prev)}
