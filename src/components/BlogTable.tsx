@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import {
   flexRender,
   getCoreRowModel,
@@ -10,14 +8,13 @@ import { motion } from 'motion/react';
 import { Editor } from '@tiptap/react';
 import { useMemo } from 'react';
 import Starterkit from '@tiptap/starter-kit';
-import { formatDistanceToNow, formatDistanceToNowStrict } from 'date-fns';
+import { formatDistanceToNowStrict } from 'date-fns';
 import { cn, getUsername } from '@/lib/utils';
 
 import { Badge } from '@/components/ui/badge';
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,

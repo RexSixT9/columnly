@@ -35,7 +35,7 @@ export const CommentCard = ({
     <div className='@container'>
       <div className='group flex flex-col items-start gap-4 p-4 rounded-xl hover:bg-accent/25 @md:flex-row'>
         <Avatar
-          email={user?.username}
+          email={user?.email}
           size='40'
           round
         />
@@ -44,7 +44,7 @@ export const CommentCard = ({
           <div className='flex items-center gap-2'>
             {user ? (
               <div className='text-sm text-muted-foreground'>
-                @{user.username}
+                {user?.username}
               </div>
             ) : (
               <div className='text-sm text-destructive/80 italic'>
@@ -102,17 +102,16 @@ export const CommentCard = ({
 
         {blog && (
           <>
-            <div className='max-w-80 grid grid-cols-[120px_minmax(200px,_1fr)] gap-3 @max-3xl:hidden'>
+            <div className='max-w-80 grid grid-cols-[120px_minmax(200px,1fr)] gap-3 @max-3xl:hidden'>
               <AspectRatio
                 ratio={21 / 9}
                 className='rounded-lg overflow-hidden'
               >
                 <img
-                  src={blog.banner.url}
                   alt={blog.title}
+                  src={blog.banner.url}
                   width={blog.banner.width}
                   height={blog.banner.height}
-                  className='rounded-lg object-cover'
                 />
               </AspectRatio>
 
@@ -126,7 +125,10 @@ export const CommentCard = ({
               className='@3xl:invisible @xl:group-hover:visible @xl:group-focus-visible:visible'
               asChild
             >
-              <Link to={`/blogs/${blog.slug}`} viewTransition>
+              <Link
+                to={`/blogs/${blog.slug}`}
+                viewTransition
+              >
                 <span className='@md:hidden'>Go to blog</span>
                 <SquareArrowOutUpRightIcon />
               </Link>
