@@ -58,14 +58,15 @@ const UserCard = ({
           email={email}
           size='40'
           name={firstName || lastName ? [firstName, lastName].join(' ') : email}
-          round
           className='rounded-lg'
         />
 
         <div>
           <div className='flex items-center gap-2'>
             <h3 className='font-semibold'>
-              {firstName || lastName ? [firstName, lastName].join(' ') : email}
+              {firstName || lastName
+                ? [firstName, lastName].join(' ')
+                : username}
             </h3>
             {role === 'admin' && (
               <Badge
@@ -76,8 +77,76 @@ const UserCard = ({
               </Badge>
             )}
           </div>
-          <p className='text-sm text-muted-foreground'>{email}</p>
+          <p className='text-sm text-muted-foreground truncate'>{email}</p>
+          <div className='text-xs text-muted-foreground mt-2'>
+            <Tooltip delayDuration={250}>
+              <TooltipTrigger>
+                Joined{' '}
+                {formatDistanceToNowStrict(createdAt, { addSuffix: true })}
+              </TooltipTrigger>
+              <TooltipContent side='right'>
+                {new Date(createdAt).toLocaleString('en-US', {
+                  dateStyle: 'medium',
+                  timeStyle: 'short',
+                })}
+              </TooltipContent>
+            </Tooltip>
+          </div>
         </div>
+
+        {loggedInUser?.username !== username && (
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button
+                variant='ghost'
+                size='icon'
+                aria-label={`Delete ${username}`}
+                className='ms-auto -mt-1.5 xl:opacity-0 group-hover:opacity-100'
+              >
+                <Trash2Icon className='h-4 w-4' />
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Delete user <strong>{username}</strong>. This action cannot be
+                  undone. This will permanently delete the user.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={() => {
+                    const submitPromise = fetcher.submit(
+                      { userId },
+                      {
+                        method: 'DELETE',
+                        action: '/admin/users',
+                        encType: 'application/json',
+                      },
+                    );
+
+                    toast.promise(submitPromise, {
+                      loading: 'Deleting user...',
+                      success: () => {
+                        if (onUserDeleteSuccess) onUserDeleteSuccess();
+
+                        return {
+                          message: 'User deleted successfully',
+                          description: `${username} has been deleted.`,
+                        };
+                      },
+                      error: 'Failed to delete user',
+                    });
+                  }}
+                >
+                  Delete
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        )}
       </CardContent>
     </Card>
   );

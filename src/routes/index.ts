@@ -8,6 +8,7 @@ import { RootLayout } from '@/components/layouts/Root';
 import { settingsAction } from './actions/user/settings';
 import Home from '@/pages/user/Home';
 import Blogs from '@/pages/user/Blogs';
+import { Blogs as AdminBlogs } from '@/pages/admin/Blogs';
 import { BlogDetail } from '@/pages/user/BlogDetail';
 import homeLoader from './loaders/user/home';
 import userBlogLoader from './loaders/user/blogs';
@@ -19,6 +20,8 @@ import { Dashboard } from '@/pages/admin/Dashboard';
 import dashboardLoader from './loaders/admin/dashboard';
 import { blogEditAction } from './actions/admin/blogEdit';
 import { blogsAction } from './actions/admin/blogsAction';
+import { allUsersAction } from './actions/admin/users';
+import allBlogsLoader from './loaders/admin/blogs';
 
 const router = createBrowserRouter([
   {
@@ -70,6 +73,8 @@ const router = createBrowserRouter([
       },
       {
         path: 'blogs',
+        Component: AdminBlogs,
+        loader: allBlogsLoader,
         action: blogsAction,
         handle: {
           breadcrumb: 'Blogs',
@@ -96,6 +101,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'users',
+        action: allUsersAction,
         handle: {
           breadcrumb: 'Users',
         },
