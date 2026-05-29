@@ -19,8 +19,8 @@ import type { User, Blog } from '@/types';
 type CommentCardProps = {
   content: string;
   likesCount: number;
-  user: User;
-  blog: Blog;
+  user: User | null;
+  blog: Blog | null;
   createdAt: string;
 };
 
@@ -35,7 +35,8 @@ export const CommentCard = ({
     <div className='@container'>
       <div className='group flex flex-col items-start gap-4 p-4 rounded-xl hover:bg-accent/25 @md:flex-row'>
         <Avatar
-          email={user?.email}
+          email={user?.email ?? ''}
+          name={user?.username ?? ''}
           size='40'
           round
         />
@@ -112,6 +113,7 @@ export const CommentCard = ({
                   src={blog.banner.url}
                   width={blog.banner.width}
                   height={blog.banner.height}
+                  className='object-cover h-full w-full'
                 />
               </AspectRatio>
 
@@ -122,7 +124,8 @@ export const CommentCard = ({
 
             <Button
               variant='ghost'
-              className='@3xl:invisible @xl:group-hover:visible @xl:group-focus-visible:visible'
+              // className='@3xl:invisible @xl:group-hover:visible @xl:group-focus-within:visible'
+              className='opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity'
               asChild
             >
               <Link
