@@ -34,15 +34,16 @@ export const Blogs = () => {
 
   const [currentLimit, setCurrentLimit] = useState(limit);
   const [currentOffset, setCurrentOffset] = useState(offset);
-  const [paginateTo, setPaginateTo] = useState<paginateTo>();
+  const [paginateTo, setPaginateTo] = useState<paginateTo>(null);
 
   const isPaginating =
     fetcher.state === 'loading' &&
     fetcher.formMethod === 'GET' &&
     fetcher.formAction === '/admin/blogs';
 
-  const showingFrom = offset + 1;
-  const showingTo = total <= limit ? total : offset + limit;
+  const showingFrom = total === 0 ? 0 : currentOffset + 1;
+  const showingTo =
+    total === 0 ? 0 : Math.min(total, currentOffset + currentLimit);
 
   useEffect(() => {
     const searchParams = new URLSearchParams();
@@ -51,8 +52,9 @@ export const Blogs = () => {
     fetcher.submit(searchParams.toString());
   }, [currentLimit, currentOffset]);
 
-  const totalPages = Math.ceil(total / limit);
-  const currentPage = Math.floor((offset + 1) / limit);
+  const totalPages = total === 0 ? 0 : Math.ceil(total / currentLimit);
+  const currentPage =
+    total === 0 ? 0 : Math.floor(currentOffset / currentLimit) + 1;
 
   return (
     <div className='p-4 container space-y-4'>
@@ -80,14 +82,19 @@ export const Blogs = () => {
               value={currentLimit.toString()}
               onValueChange={(value) => {
                 const LimitN = Number(value);
-                setCurrentLimit(LimitN);
                 setPaginateTo(null);
-                setCurrentOffset(0);
-
-                const inLastPage = currentPage === totalPages;
-                if (inLastPage && offset !== 0) {
-                  setCurrentOffset(total - (total % LimitN || LimitN));
+                const onLastPage =
+                  total > 0 && currentOffset + currentLimit >= total;
+                if (onLastPage) {
+                  const newOffset = Math.max(
+                    0,
+                    total - (total % LimitN || LimitN),
+                  );
+                  setCurrentOffset(newOffset);
+                } else {
+                  setCurrentOffset(0);
                 }
+                setCurrentLimit(LimitN);
               }}
             >
               <SelectTrigger
@@ -138,7 +145,7 @@ export const Blogs = () => {
               disabled={currentPage <= 1}
               aria-label='Previous Page'
               onClick={() => {
-                setCurrentOffset(offset - limit);
+                setCurrentOffset((prev) => Math.max(0, prev - currentLimit));
                 setPaginateTo('prev');
               }}
             >
@@ -155,7 +162,7 @@ export const Blogs = () => {
               disabled={currentPage >= totalPages}
               aria-label='Next Page'
               onClick={() => {
-                setCurrentOffset(offset + limit);
+                setCurrentOffset((prev) => prev + currentLimit);
                 setPaginateTo('next');
               }}
             >
@@ -172,7 +179,9 @@ export const Blogs = () => {
               disabled={currentPage >= totalPages}
               aria-label='Last Page'
               onClick={() => {
-                setCurrentOffset(total - (total % limit || limit));
+                setCurrentOffset(
+                  Math.max(0, total - (total % currentLimit || currentLimit)),
+                );
                 setPaginateTo('last');
               }}
             >

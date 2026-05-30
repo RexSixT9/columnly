@@ -22,6 +22,7 @@ import { blogEditAction } from './actions/admin/blogEdit';
 import { blogsAction } from './actions/admin/blogsAction';
 import { allUsersAction } from './actions/admin/users';
 import allBlogsLoader from './loaders/admin/blogs';
+import allCommentsLoader from './loaders/admin/comments';
 
 const router = createBrowserRouter([
   {
@@ -95,6 +96,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'comments',
+        loader: allCommentsLoader,
         handle: {
           breadcrumb: 'Comments',
         },

@@ -55,7 +55,6 @@ const UserCard = ({
     <Card className='group py-4'>
       <CardContent className='grid grid-cols-[max-content_minmax(0,1fr)_max-content] gap-4 px-4'>
         <Avatar
-          email={email}
           size='40'
           name={firstName || lastName ? [firstName, lastName].join(' ') : email}
           className='rounded-lg'
