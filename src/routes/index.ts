@@ -24,6 +24,8 @@ import { allUsersAction } from './actions/admin/users';
 import allBlogsLoader from './loaders/admin/blogs';
 import allCommentsLoader from './loaders/admin/comments';
 import { Comments } from '@/pages/admin/Comments';
+import allUsersLoader from './loaders/admin/users';
+import { Users } from '@/pages/admin/Users';
 
 const router = createBrowserRouter([
   {
@@ -105,6 +107,8 @@ const router = createBrowserRouter([
       },
       {
         path: 'users',
+        Component: Users,
+        loader: allUsersLoader,
         action: allUsersAction,
         handle: {
           breadcrumb: 'Users',
