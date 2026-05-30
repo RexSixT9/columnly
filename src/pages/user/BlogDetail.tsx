@@ -2,6 +2,7 @@ import { useCallback, useMemo } from 'react';
 import { useLoaderData, useNavigate } from 'react-router';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import { Markdown } from 'tiptap-markdown';
 import { toast } from 'sonner';
 import Avatar from 'react-avatar';
 
@@ -95,8 +96,8 @@ export const BlogDetail = () => {
   const { blog } = useLoaderData() as { blog: Blog };
 
   const editor = useEditor({
-    extensions: [StarterKit],
-    content: blog?.content ?? '',
+    extensions: [StarterKit, Markdown],
+    content: blog?.content,
     editable: false,
     autofocus: false,
   });

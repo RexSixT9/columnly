@@ -34,7 +34,7 @@ type props = {
   lastName?: string;
   role: 'user' | 'admin';
   createdAt: string;
-  loggedInUser: UserResponse;
+  loggedInUser?: UserResponse;
   onUserDeleteSuccess?: () => void;
 };
 
@@ -93,7 +93,7 @@ const UserCard = ({
           </div>
         </div>
 
-        {loggedInUser?.username !== username && (
+        {loggedInUser && loggedInUser.username !== username && (
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button

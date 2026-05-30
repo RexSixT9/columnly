@@ -15,13 +15,21 @@ import {
   MessageSquareIcon,
   UserIcon,
 } from 'lucide-react';
-import { useUser, type UserResponse } from '@/hooks/useUser';
+import { useUser } from '@/hooks/useUser';
+import type { Blog, Comment, User } from '@/types';
 import BlogTable, { columns } from '@/components/BlogTable';
 import { CommentCard } from '@/components/CommentCard';
 import UserCard from '@/components/UserCard';
 
 export const Dashboard = () => {
-  const loaderData = useLoaderData();
+  const loaderData = useLoaderData() as {
+    blogsCount: number;
+    usersCount: number;
+    commentsCount: number;
+    blogs: Blog[];
+    comments: Comment[];
+    users: User[];
+  };
   const loggedInUser = useUser();
 
   return (
@@ -150,25 +158,7 @@ export const Dashboard = () => {
 
           <CardContent className='px-4 '>
             {loaderData.users?.map(
-              ({
-                _id,
-                username,
-                email,
-                firstName,
-                lastName,
-                role,
-                createdAt,
-                loggedInUser,
-              }: {
-                _id: string;
-                username: string;
-                email: string;
-                firstName: string;
-                lastName: string;
-                role: 'user' | 'admin';
-                createdAt: string;
-                loggedInUser: UserResponse;
-              }) => (
+              ({ _id, username, email, firstName, lastName, role, createdAt }) => (
                 <UserCard
                   key={_id}
                   userId={_id}
