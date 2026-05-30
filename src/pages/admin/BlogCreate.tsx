@@ -14,7 +14,6 @@ export const BlogCreate = () => {
         isSubmitting && 'pointer-events-none opacity-70',
       )}
     >
-      <h2 className='text-2xl font-semibold mb-4'>Create New Blog</h2>
       <BlogForm onSubmit={() => {}} />
     </div>
   );
