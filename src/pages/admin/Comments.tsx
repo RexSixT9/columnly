@@ -23,13 +23,27 @@ export const Comments = () => {
   const handleLoadMore = useCallback((offset: number) => {
     const searchParams = new URLSearchParams();
     searchParams.set('offset', offset.toString());
-
-    fetcher.submit(searchParams.toString());
-  }, []);
+    fetcher.submit(searchParams, { method: 'get', action: '/admin/comments' });
+  }, [fetcher]);
 
   useEffect(() => {
-    setAllComments((prevComments) => [...prevComments, ...comments]);
-  }, [comments]);
+    if (!comments) return;
+
+    // schedule update asynchronously to avoid synchronous setState in effect
+    const id = setTimeout(() => {
+      setAllComments((prevComments) => {
+        // if we're on the first page (offset 0), replace the list
+        if (offset === 0) return comments;
+
+        // otherwise append new comments but avoid duplicates by _id
+        const existingIds = new Set(prevComments.map((c) => c._id));
+        const newComments = comments.filter((c) => !existingIds.has(c._id));
+        return [...prevComments, ...newComments];
+      });
+    }, 0);
+
+    return () => clearTimeout(id);
+  }, [comments, offset]);
 
   const hasMoreComments = offset + limit < total;
   const isLoading =

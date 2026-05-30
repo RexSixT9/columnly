@@ -19,7 +19,7 @@ import type { User, Blog } from '@/types';
 type CommentCardProps = {
   content: string;
   likesCount: number;
-  user: User;
+  user: User | null;
   blog: Blog;
   createdAt: string;
 };
