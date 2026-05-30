@@ -9,17 +9,13 @@ import {
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-
-import { useUser } from '@/hooks/useUser';
-
 import {
   TextIcon,
   UserRoundIcon,
   MessageSquareIcon,
   UserIcon,
 } from 'lucide-react';
-
-import type { User, Blog } from '@/types';
+import { useUser, type UserResponse } from '@/hooks/useUser';
 import BlogTable, { columns } from '@/components/BlogTable';
 import { CommentCard } from '@/components/CommentCard';
 import UserCard from '@/components/UserCard';
@@ -163,6 +159,15 @@ export const Dashboard = () => {
                 role,
                 createdAt,
                 loggedInUser,
+              }: {
+                _id: string;
+                username: string;
+                email: string;
+                firstName: string;
+                lastName: string;
+                role: 'user' | 'admin';
+                createdAt: string;
+                loggedInUser: UserResponse;
               }) => (
                 <UserCard
                   key={_id}
