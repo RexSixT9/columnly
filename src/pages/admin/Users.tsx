@@ -1,8 +1,7 @@
 import { useLoaderData, useFetcher } from 'react-router';
-import { useEffect, useState, Fragment, useMemo, useCallback } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 import UserCard from '@/components/UserCard';
 import { useUser } from '@/hooks/useUser';
 import { Loader2Icon } from 'lucide-react';
