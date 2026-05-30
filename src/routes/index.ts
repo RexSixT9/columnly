@@ -26,6 +26,7 @@ import allCommentsLoader from './loaders/admin/comments';
 import { Comments } from '@/pages/admin/Comments';
 import allUsersLoader from './loaders/admin/users';
 import { Users } from '@/pages/admin/Users';
+import { BlogCreate } from '@/pages/admin/BlogCreate';
 
 const router = createBrowserRouter([
   {
@@ -86,6 +87,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'blogs/create',
+        Component: BlogCreate,
         handle: {
           breadcrumb: 'Create Blog',
         },

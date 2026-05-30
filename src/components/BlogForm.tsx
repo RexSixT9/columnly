@@ -35,5 +35,36 @@ export const BlogForm: React.FC<BlogFormProps> = ({
   defaultValues,
   onSubmit,
 }) => {
-  return <div>BlogForm</div>;
+  const [data, setData] = useState<BlogFormData>({
+    title: defaultValues?.title || '',
+    content: defaultValues?.content || '',
+  });
+
+  const [bannerPreview, setBannerPreview] = useState<string | undefined>(
+    defaultValues?.bannerUrl,
+  );
+
+  const status = defaultValues?.status || 'draft';
+  const hasBanner = useMemo(() => Boolean(bannerPreview), [bannerPreview]);
+
+  return (
+    <div>
+      <div>
+        {!hasBanner && (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant='outline'
+                size='sm'
+                className='w-full'
+              >
+                <GalleryThumbnailsIcon className='me-2' />
+                Add Banner Image
+              </Button>
+            </TooltipTrigger>
+          </Tooltip>
+        )}
+      </div>
+    </div>
+  );
 };
