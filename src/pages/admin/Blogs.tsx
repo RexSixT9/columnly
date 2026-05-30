@@ -60,17 +60,16 @@ export const Blogs = () => {
     <div className='p-4 container space-y-4'>
       <h2 className='text-2xl font-semibold'>All Blogs</h2>
 
-      <BlogTable
-        columns={columns}
-        data={blogs}
-      />
+      <div className='overflow-x-auto'>
+        <BlogTable columns={columns} data={blogs} />
+      </div>
 
-      <div className='flex items-center justify-between'>
-        <div className='text-sm text-muted-foreground flex flex-1 font-medium'>
+      <div className='flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4'>
+        <div className='text-sm text-muted-foreground flex-1 font-medium'>
           Showing {showingFrom} - {showingTo} of {total} blogs
         </div>
 
-        <div className='flex items-center gap-8 w-fit'>
+        <div className='flex flex-wrap items-center gap-3 sm:gap-8 justify-end w-full sm:w-auto'>
           <div className='flex items-center gap-2'>
             <Label
               htmlFor='limit'
@@ -117,14 +116,14 @@ export const Blogs = () => {
             </Select>
           </div>
 
-          <div className='flex w-fit items-center justify-center gap-2 text-sm font-medium'>
+          <div className='hidden sm:flex items-center justify-center gap-2 text-sm font-medium'>
             Page {currentPage} of {totalPages}
           </div>
 
           <div className='flex items-center gap-2'>
             <Button
               variant='outline'
-              className='size-8 p-0'
+              className='size-8 h-8 w-8 p-0 flex items-center justify-center'
               disabled={currentPage <= 1}
               aria-label='First Page'
               onClick={() => {
@@ -141,7 +140,7 @@ export const Blogs = () => {
 
             <Button
               variant='outline'
-              className='size-8 p-0'
+              className='size-8 h-8 w-8 p-0 flex items-center justify-center'
               disabled={currentPage <= 1}
               aria-label='Previous Page'
               onClick={() => {
@@ -158,7 +157,7 @@ export const Blogs = () => {
 
             <Button
               variant='outline'
-              className='size-8 p-0'
+              className='size-8 h-8 w-8 p-0 flex items-center justify-center'
               disabled={currentPage >= totalPages}
               aria-label='Next Page'
               onClick={() => {
@@ -175,7 +174,7 @@ export const Blogs = () => {
 
             <Button
               variant='outline'
-              className='size-8 p-0'
+              className='size-8 h-8 w-8 p-0 flex items-center justify-center'
               disabled={currentPage >= totalPages}
               aria-label='Last Page'
               onClick={() => {
