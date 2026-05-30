@@ -52,7 +52,6 @@ export const AppSidebar = ({
     <Sidebar
       {...props}
       variant='inset'
-      collapsible='icon'
     >
       <SidebarHeader>
         <SidebarMenu>
@@ -88,7 +87,6 @@ export const AppSidebar = ({
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
-
       <SidebarFooter>
         <SidebarUserMenu />
       </SidebarFooter>
