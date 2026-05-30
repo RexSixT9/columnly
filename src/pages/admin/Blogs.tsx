@@ -16,6 +16,7 @@ import {
   ChevronRightIcon,
   ChevronsLeftIcon,
   ChevronsRightIcon,
+  Loader2Icon,
 } from 'lucide-react';
 
 import type { Blog, PaginatedResponse } from '@/types';
@@ -107,6 +108,80 @@ export const Blogs = () => {
                 ))}
               </SelectContent>
             </Select>
+          </div>
+
+          <div className='flex w-fit items-center justify-center gap-2 text-sm font-medium'>
+            Page {currentPage} of {totalPages}
+          </div>
+
+          <div className='flex items-center gap-2'>
+            <Button
+              variant='outline'
+              className='size-8 p-0'
+              disabled={currentPage <= 1}
+              aria-label='First Page'
+              onClick={() => {
+                setCurrentOffset(0);
+                setPaginateTo('first');
+              }}
+            >
+              {isPaginating && paginateTo === 'first' ? (
+                <Loader2Icon className='animate-spin' />
+              ) : (
+                <ChevronsLeftIcon />
+              )}
+            </Button>
+
+            <Button
+              variant='outline'
+              className='size-8 p-0'
+              disabled={currentPage <= 1}
+              aria-label='Previous Page'
+              onClick={() => {
+                setCurrentOffset(offset - limit);
+                setPaginateTo('prev');
+              }}
+            >
+              {isPaginating && paginateTo === 'prev' ? (
+                <Loader2Icon className='animate-spin' />
+              ) : (
+                <ChevronLeftIcon />
+              )}
+            </Button>
+
+            <Button
+              variant='outline'
+              className='size-8 p-0'
+              disabled={currentPage >= totalPages}
+              aria-label='Next Page'
+              onClick={() => {
+                setCurrentOffset(offset + limit);
+                setPaginateTo('next');
+              }}
+            >
+              {isPaginating && paginateTo === 'next' ? (
+                <Loader2Icon className='animate-spin' />
+              ) : (
+                <ChevronRightIcon />
+              )}
+            </Button>
+
+            <Button
+              variant='outline'
+              className='size-8 p-0'
+              disabled={currentPage >= totalPages}
+              aria-label='Last Page'
+              onClick={() => {
+                setCurrentOffset(total - (total % limit || limit));
+                setPaginateTo('last');
+              }}
+            >
+              {isPaginating && paginateTo === 'last' ? (
+                <Loader2Icon className='animate-spin' />
+              ) : (
+                <ChevronsRightIcon />
+              )}
+            </Button>
           </div>
         </div>
       </div>
