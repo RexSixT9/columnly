@@ -128,7 +128,7 @@ export const BlogDetail = () => {
               size='32'
               round
             />
-            <span className='text-sm font-medium'>
+            <span className='text-sm font-medium truncate'>
               {getUsername(blog.author)}
             </span>
           </div>
@@ -138,7 +138,7 @@ export const BlogDetail = () => {
             className='hidden sm:block data-[orientation=vertical]:h-1 data-[orientation=vertical]:w-1 rounded-full'
           />
 
-          <div className='text-muted-foreground text-sm'>{readingTime} min read</div>
+          <div className='text-muted-foreground text-sm'>{readingTime} min</div>
 
           <Separator
             orientation='vertical'
@@ -164,7 +164,10 @@ export const BlogDetail = () => {
           </Button>
 
           <ShareDropdown blogTitle={blog.title}>
-            <Button variant='ghost' className='sm:ms-auto ms-0'>
+            <Button
+              variant='ghost'
+              className='sm:ms-auto ms-0'
+            >
               <IconShare />
               Share
             </Button>
