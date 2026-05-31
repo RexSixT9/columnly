@@ -39,7 +39,7 @@ export const Hero = ({
 }: React.ComponentProps<'section'>) => {
   return (
     <section
-      className={cn('section py-12 md:py-20', className)}
+      className={cn('section py-8 sm:py-10 md:py-16 lg:py-24', className)}
       {...props}
     >
       <motion.div

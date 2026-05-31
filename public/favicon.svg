@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+
+  <!-- bar 1: top, full width -->
+  <rect x="10" y="10" width="44" height="13" rx="4" fill="#FF7700"/>
+  <!-- bar 2: middle, full width, 72% opacity -->
+  <rect x="10" y="28" width="44" height="13" rx="4" fill="#FF7700" opacity="0.72"/>
+  <!-- bar 3: bottom, 60% width (C notch), 52% opacity -->
+  <rect x="10" y="46" width="27" height="13" rx="4" fill="#FF7700" opacity="0.52"/>
+</svg>

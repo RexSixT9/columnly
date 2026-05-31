@@ -1,1 +1,6 @@
-<svg width="115" height="33" viewBox="0 0 115 33" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7068d4"/><stop offset="100%" stop-color="#4b44a8"/></linearGradient></defs><rect width="33" height="33" rx="7.3" fill="url(#g)"/><rect x="5.5" y="5.6" width="5.3" height="21.8" rx="2.65" fill="rgba(255,255,255,.95)"/><rect x="13.8" y="10.9" width="5.3" height="16.5" rx="2.65" fill="rgba(200,193,250,.85)"/><rect x="22.2" y="16" width="5.3" height="11.4" rx="2.65" fill="rgba(150,143,225,.7)"/><circle cx="27.8" cy="5.5" r="3.1" fill="#e99520"/><circle cx="27.8" cy="5.5" r="1.75" fill="#f7c060"/><text x="40" y="22.5" font-family="Syne,system-ui,sans-serif" font-size="16.5" font-weight="700" letter-spacing="-0.4" fill="white">Columnly</text></svg>
+<svg viewBox="0 0 500 110" width="320" height="70" xmlns="http://www.w3.org/2000/svg">
+    <rect x="20" y="27" width="70" height="17" rx="5" fill="#FF7700"></rect>
+    <rect x="20" y="50" width="70" height="17" rx="5" fill="#FF7700" opacity="0.72"></rect>
+    <rect x="20" y="73" width="44" height="17" rx="5" fill="#FF7700" opacity="0.46"></rect>
+    <text x="108" y="89" font-family="'Poppins','Inter',system-ui,sans-serif" font-weight="500" font-size="56" fill="#FFFFFF" letter-spacing="-1.5">Columnly</text>
+</svg>
