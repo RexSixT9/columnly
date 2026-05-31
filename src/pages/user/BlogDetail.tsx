@@ -108,7 +108,7 @@ export const BlogDetail = () => {
 
   return (
     <Page>
-      <article className='relative container max-w-180 pt-6 pb-12'>
+      <article className='relative container max-w-180 pt-6 pb-12 px-4 sm:px-6 lg:px-8 mx-auto'>
         <Button
           variant='outline'
           size='icon'
@@ -117,11 +117,11 @@ export const BlogDetail = () => {
         >
           <IconArrowLeft />
         </Button>
-        <h1 className='text-4xl leading-tight font-semibold -mt-10'>
+        <h1 className='text-3xl md:text-4xl leading-tight font-semibold -mt-10'>
           {blog.title}
         </h1>
 
-        <div className='flex items-center gap-3 my-8'>
+        <div className='flex flex-wrap items-center gap-3 my-8'>
           <div className='flex items-center gap-3'>
             <Avatar
               name={blog.author.email}
@@ -135,14 +135,14 @@ export const BlogDetail = () => {
 
           <Separator
             orientation='vertical'
-            className='data-[orientation=vertical]:h-1 data-[orientation=vertical]:w-1 rounded-full'
+            className='hidden sm:block data-[orientation=vertical]:h-1 data-[orientation=vertical]:w-1 rounded-full'
           />
 
           <div className='text-muted-foreground text-sm'>{readingTime} min read</div>
 
           <Separator
             orientation='vertical'
-            className='data-[orientation=vertical]:h-1 data-[orientation=vertical]:w-1 rounded-full'
+            className='hidden sm:block data-[orientation=vertical]:h-1 data-[orientation=vertical]:w-1 rounded-full'
           />
 
           <div className='text-muted-foreground text-sm'>
@@ -152,7 +152,7 @@ export const BlogDetail = () => {
           </div>
         </div>
 
-        <div className='flex items-center gap-2 my-2'>
+        <div className='flex flex-wrap items-center gap-2 my-2'>
           <Button variant='ghost'>
             <IconThumbUp />
             {blog.likesCount || 0}
@@ -164,7 +164,7 @@ export const BlogDetail = () => {
           </Button>
 
           <ShareDropdown blogTitle={blog.title}>
-            <Button variant='ghost' className='ms-auto'>
+            <Button variant='ghost' className='sm:ms-auto ms-0'>
               <IconShare />
               Share
             </Button>
@@ -175,17 +175,21 @@ export const BlogDetail = () => {
         <div className='my-8'>
           <AspectRatio
             ratio={21 / 9}
-            className='overflow-hidden rounded-xl bg-border'
+            className='overflow-hidden rounded-xl bg-border w-full'
           >
             <img
               src={blog.banner.url}
               width={blog.banner.width}
               height={blog.banner.height}
               alt={`Banner image for ${blog.title}`}
+              className='object-cover w-full h-full'
+              loading='lazy'
             />
           </AspectRatio>
         </div>
-        <EditorContent editor={editor} />
+        <div className='max-w-full wrap-break-word my-6'>
+          <EditorContent editor={editor} />
+        </div>
       </article>
     </Page>
   );
