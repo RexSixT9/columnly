@@ -15,7 +15,6 @@ export const blogEditAction: ActionFunction = async ({ request, params }) => {
     const response = await columnlyApi.put(`/blogs/${slug}`, formData, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        'Content-Encoding': 'multipart/form-data',
       },
     });
     const responseData = response.data;

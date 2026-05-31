@@ -182,7 +182,6 @@ export const BlogDetail = () => {
               width={blog.banner.width}
               height={blog.banner.height}
               alt={`Banner image for ${blog.title}`}
-              className='w-full h-full object-cover'
             />
           </AspectRatio>
         </div>
