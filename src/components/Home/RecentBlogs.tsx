@@ -30,6 +30,9 @@ const RecentBlogs = ({
   ...props
 }: React.ComponentProps<'section'>) => {
   const { recentBlogs } = useLoaderData<HomeLoaderResponse>();
+  const blogs = recentBlogs?.blogs ?? [];
+  const isEmpty = blogs.length === 0;
+
   return (
     <section
       className={cn('section', className)}
@@ -47,35 +50,42 @@ const RecentBlogs = ({
           Recent Blogs
         </motion.h2>
 
-        <motion.ul
-          className='grid gap-4 lg:grid-cols-2 lg:grid-rows-3'
-          initial='from'
-          whileInView='to'
-          viewport={{ once: true }}
-          variants={listVariants}
-        >
-          {recentBlogs.blogs.map(
-            ({ slug, banner, title, content, author, publishedAt }, index) => (
-              <motion.li
-                key={slug}
-                className={cn(index === 0 && 'lg:row-span-3')}
-                variants={itemVariants}
-              >
-                <BlogCard
-                  bannerUrl={banner.url}
-                  bannerWidth={banner.width}
-                  bannerHeight={banner.height}
-                  title={title}
-                  content={content}
-                  slug={slug}
-                  authorName={author.username}
-                  publishedAt={publishedAt}
-                  size={index > 0 ? 'sm' : 'default'}
-                />
-              </motion.li>
-            ),
-          )}
-        </motion.ul>
+        {isEmpty ? (
+          <div className='py-8 text-center text-muted-foreground'>
+            <p className='text-lg font-medium'>No recent blogs</p>
+            <p className='mt-2'>No recently published blogs found. Try checking the All Blogs section.</p>
+          </div>
+        ) : (
+          <motion.ul
+            className='grid gap-4 lg:grid-cols-2 lg:grid-rows-3'
+            initial='from'
+            whileInView='to'
+            viewport={{ once: true }}
+            variants={listVariants}
+          >
+            {blogs.map(
+              ({ slug, banner, title, content, author, publishedAt }, index) => (
+                <motion.li
+                  key={slug}
+                  className={cn(index === 0 && 'lg:row-span-3')}
+                  variants={itemVariants}
+                >
+                  <BlogCard
+                    bannerUrl={banner?.url ?? ''}
+                    bannerWidth={banner?.width ?? 640}
+                    bannerHeight={banner?.height ?? 360}
+                    title={title}
+                    content={content}
+                    slug={slug}
+                    authorName={author?.username ?? 'Unknown'}
+                    publishedAt={publishedAt ?? new Date().toISOString()}
+                    size={index > 0 ? 'sm' : 'default'}
+                  />
+                </motion.li>
+              ),
+            )}
+          </motion.ul>
+        )}
       </div>
     </section>
   );
