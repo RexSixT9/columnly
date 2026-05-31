@@ -27,6 +27,8 @@ import { Comments } from '@/pages/admin/Comments';
 import allUsersLoader from './loaders/admin/users';
 import { Users } from '@/pages/admin/Users';
 import { BlogCreate } from '@/pages/admin/BlogCreate';
+import { blogCreateAction } from './actions/admin/blogCreate';
+import { BlogEdit } from '@/pages/admin/BlogEdit';
 
 const router = createBrowserRouter([
   {
@@ -88,12 +90,15 @@ const router = createBrowserRouter([
       {
         path: 'blogs/create',
         Component: BlogCreate,
+        action: blogCreateAction,
         handle: {
           breadcrumb: 'Create Blog',
         },
       },
       {
         path: 'blogs/:slug/edit',
+        Component: BlogEdit,
+        loader: blogDetailLoader,
         action: blogEditAction,
         handle: {
           breadcrumb: 'Edit Blog',

@@ -28,7 +28,7 @@ type FormDefaultValues = {
 };
 
 type BlogFormProps = {
-  defaultValues: FormDefaultValues;
+  defaultValues?: FormDefaultValues;
   onSubmit: (formData: BlogFormData, status: BlogStatus) => void;
 };
 
@@ -84,7 +84,6 @@ export const BlogForm: React.FC<BlogFormProps> = ({
                 </Label>
               </Button>
             </TooltipTrigger>
-
             <TooltipContent>
               <p>
                 Max file size: 2 MB. Supported formats: JPG, JPEG, PNG, WEBP
@@ -107,7 +106,6 @@ export const BlogForm: React.FC<BlogFormProps> = ({
                 alt='Banner Preview'
                 className='w-full h-full object-cover'
               />
-
               <Button
                 variant='destructive'
                 size='icon'
@@ -138,13 +136,45 @@ export const BlogForm: React.FC<BlogFormProps> = ({
         }
       />
 
-      <div className='relative border inset-ring-border rounded-2xl'>
+      <div className='relative border inset-ring-border rounded-xl'>
         <Tiptap
           onUpdate={({ editor }) => {
             setData((prev) => ({ ...prev, content: editor.getHTML() }));
           }}
           content={data.content}
         />
+      </div>
+
+      <div className='flex justify-end items-center gap-2 sticky bottom-0 py-4 bg-background isolate after:absolute after:bottom-full after:w-full after:h-10 after:gradient-to-t after:from-background after:to-transparent after:-z-10 after:pointer-events-none'>
+        <Button
+          variant='outline'
+          onClick={() =>
+            onSubmit(
+              {
+                title: data.title,
+                content: data.content,
+                banner_image: data.banner_image,
+              },
+              'draft',
+            )
+          }
+        >
+          Save Draft
+        </Button>
+        <Button
+          onClick={() =>
+            onSubmit(
+              {
+                title: data.title,
+                content: data.content,
+                banner_image: data.banner_image,
+              },
+              'published',
+            )
+          }
+        >
+          {status === 'draft' ? 'Publish' : 'Update'}
+        </Button>
       </div>
     </div>
   );
