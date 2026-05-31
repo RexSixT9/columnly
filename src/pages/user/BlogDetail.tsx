@@ -137,12 +137,15 @@ export const BlogDetail = () => {
             orientation='vertical'
             className='data-[orientation=vertical]:h-1 data-[orientation=vertical]:w-1 rounded-full'
           />
-          <div className='text-muted-foreground'>{readingTime} min read</div>
+
+          <div className='text-muted-foreground text-sm'>{readingTime} min read</div>
+
           <Separator
             orientation='vertical'
             className='data-[orientation=vertical]:h-1 data-[orientation=vertical]:w-1 rounded-full'
           />
-          <div className='text-muted-foreground'>
+
+          <div className='text-muted-foreground text-sm'>
             {new Date(blog.publishedAt).toLocaleDateString('en-US', {
               dateStyle: 'medium',
             })}
@@ -161,12 +164,9 @@ export const BlogDetail = () => {
           </Button>
 
           <ShareDropdown blogTitle={blog.title}>
-            <Button
-              variant='ghost'
-              className='ms-auto'
-            >
+            <Button variant='ghost' className='ms-auto'>
               <IconShare />
-              Share{' '}
+              Share
             </Button>
           </ShareDropdown>
         </div>
