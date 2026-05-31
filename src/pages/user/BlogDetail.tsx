@@ -149,21 +149,20 @@ export const BlogDetail = () => {
           </div>
         </div>
 
-        {/* <Separator className='opacity-40' /> */}
         <div className='flex items-center gap-2 my-2'>
-          <Button variant='outline'>
+          <Button variant='ghost'>
             <IconThumbUp />
             {blog.likesCount || 0}
           </Button>
 
-          <Button variant='outline'>
+          <Button variant='ghost'>
             <IconMessage />
             {blog.commentsCount || 0}
           </Button>
 
           <ShareDropdown blogTitle={blog.title}>
             <Button
-              variant='outline'
+              variant='ghost'
               className='ms-auto'
             >
               <IconShare />
@@ -171,7 +170,7 @@ export const BlogDetail = () => {
             </Button>
           </ShareDropdown>
         </div>
-        <Separator className='opacity-30' />
+        <Separator className='opacity-40' />
 
         <div className='my-8'>
           <AspectRatio

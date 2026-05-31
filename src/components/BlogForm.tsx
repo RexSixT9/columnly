@@ -56,7 +56,6 @@ export const BlogForm: React.FC<BlogFormProps> = ({
             <TooltipTrigger asChild>
               <Button
                 variant='outline'
-                size='sm'
                 className='absolute top-0.5 left-0.5 overflow-hidden'
                 asChild
               >
@@ -145,7 +144,7 @@ export const BlogForm: React.FC<BlogFormProps> = ({
         />
       </div>
 
-      <div className='flex justify-end items-center gap-2 sticky bottom-0 py-4 bg-background isolate after:absolute after:bottom-full after:w-full after:h-10 after:gradient-to-t after:from-background after:to-transparent after:-z-10 after:pointer-events-none'>
+      <div className='flex justify-end items-center gap-2 sticky bottom-0 py-4 bg-background isolate after:absolute after:bottom-full after:w-full after:h-10 after:bg-linear-to-t after:from-background after:to-transparent after:-z-10 after:pointer-events-none'>
         <Button
           variant='outline'
           onClick={() =>
