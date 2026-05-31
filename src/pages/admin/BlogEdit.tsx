@@ -38,7 +38,7 @@ export const BlogEdit = () => {
             loading: 'Updating blog post...',
             success: {
               message: 'Blog post updated successfully!',
-              description: 'Redirecting to blog list...',
+              description: 'Your changes have been saved.',
             },
             error: {
               message: 'Failed to update blog post.',

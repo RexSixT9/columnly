@@ -34,7 +34,7 @@ export const BlogCreate = () => {
             loading: 'Creating blog post...',
             success: {
               message: 'Blog post created successfully!',
-              description: 'Redirecting to blog list...',
+              description: 'Check the blog list for your new post.',
             },
             error: {
               message: 'Failed to create blog post.',
