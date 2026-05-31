@@ -29,8 +29,10 @@ const itemVariants: Variants = {
 };
 
 const Blogs = ({ className, ...props }: React.ComponentProps<'section'>) => {
-  const loaderData = useLoaderData() as PaginatedResponse<BlogType, 'blogs'>;
-  const { blogs } = loaderData;
+  const loaderData = useLoaderData() as PaginatedResponse<BlogType, 'blogs'> | undefined;
+  const blogs = loaderData?.blogs ?? [];
+  const isEmpty = blogs.length === 0;
+
   return (
     <Page>
       <section
@@ -49,33 +51,41 @@ const Blogs = ({ className, ...props }: React.ComponentProps<'section'>) => {
             All Blogs
           </motion.h2>
 
-          <motion.ul
-            className='grid gap-4 lg:grid-cols-2 xl:grid-cols-3'
-            initial='from'
-            whileInView='to'
-            viewport={{ once: true }}
-            variants={listVariants}
-          >
-            {blogs.map(
-              ({ slug, banner, title, content, author, publishedAt }) => (
-                <motion.li
-                  key={slug}
-                  variants={itemVariants}
-                >
-                  <BlogCard
-                    bannerUrl={banner.url}
-                    bannerWidth={banner.width}
-                    bannerHeight={banner.height}
-                    title={title}
-                    content={content}
-                    slug={slug}
-                    authorName={getUsername(author)}
-                    publishedAt={publishedAt}
-                  />
-                </motion.li>
-              ),
-            )}
-          </motion.ul>
+          {isEmpty ? (
+            <div className='py-8 text-center text-muted-foreground'>
+              <p className='text-lg font-medium'>No blogs found</p>
+              <p className='mt-2'>There are no blogs to display. Try refreshing or check back later.</p>
+            </div>
+          ) : (
+            <motion.ul
+              className='grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3'
+              initial='from'
+              whileInView='to'
+              viewport={{ once: true }}
+              variants={listVariants}
+            >
+              {blogs.map(
+                ({ slug, banner, title, content, author, publishedAt }) => (
+                  <motion.li
+                    key={slug}
+                    variants={itemVariants}
+                  >
+                    <BlogCard
+                      bannerUrl={banner?.url ?? ''}
+                      bannerWidth={banner?.width ?? 640}
+                      bannerHeight={banner?.height ?? 360}
+                      title={title}
+                      content={content}
+                      slug={slug}
+                      authorName={getUsername(author) ?? 'Unknown'}
+                      publishedAt={publishedAt ?? new Date().toISOString()}
+                    />
+                  </motion.li>
+                ),
+              )}
+            </motion.ul>
+          )}
+
           <motion.div
             className='flex justify-center mt-8 md:mt-10'
             initial={{ opacity: 0 }}
@@ -85,7 +95,6 @@ const Blogs = ({ className, ...props }: React.ComponentProps<'section'>) => {
             }}
           >
             <Button
-              asChild
               variant='default'
               size='lg'
             >

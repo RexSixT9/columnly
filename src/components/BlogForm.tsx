@@ -84,9 +84,7 @@ export const BlogForm: React.FC<BlogFormProps> = ({
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>
-                Max file size: 2 MB. Supported formats: JPG, JPEG, PNG, WEBP
-              </p>
+              Supported formats: JPG, PNG, WEBP. Max size: 2MB.
             </TooltipContent>
           </Tooltip>
         )}

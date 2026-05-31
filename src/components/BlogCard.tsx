@@ -114,15 +114,21 @@ export const BlogCard: React.FC<BlogCardProps> = ({
       <CardContent className='px-2'>
         <AspectRatio
           ratio={21 / 9}
-          className='rounded-lg overflow-hidden'
+          className='rounded-lg overflow-hidden bg-muted-foreground/5'
         >
-          <img
-            src={bannerUrl}
-            alt={title}
-            width={bannerWidth}
-            height={bannerHeight}
-            className='object-cover w-full h-full'
-          />
+          {bannerUrl ? (
+            <img
+              src={bannerUrl}
+              alt={title}
+              width={bannerWidth}
+              height={bannerHeight}
+              className='object-cover w-full h-full'
+            />
+          ) : (
+            <div className='flex items-center justify-center w-full h-full bg-muted-foreground/10 text-muted-foreground'>
+              <span className='text-sm'>No image available</span>
+            </div>
+          )}
         </AspectRatio>
       </CardContent>
     </Card>

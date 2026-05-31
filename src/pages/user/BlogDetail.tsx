@@ -177,14 +177,20 @@ export const BlogDetail = () => {
             ratio={21 / 9}
             className='overflow-hidden rounded-xl bg-border w-full'
           >
-            <img
-              src={blog.banner.url}
-              width={blog.banner.width}
-              height={blog.banner.height}
-              alt={`Banner image for ${blog.title}`}
-              className='object-cover w-full h-full'
-              loading='lazy'
-            />
+            {blog?.banner?.url ? (
+              <img
+                src={blog.banner.url}
+                width={blog.banner.width ?? 1280}
+                height={blog.banner.height ?? 540}
+                alt={`Banner image for ${blog.title}`}
+                className='object-cover w-full h-full'
+                loading='lazy'
+              />
+            ) : (
+              <div className='flex items-center justify-center w-full h-full bg-muted-foreground/10 text-muted-foreground'>
+                <span className='text-sm'>No image available</span>
+              </div>
+            )}
           </AspectRatio>
         </div>
         <div className='max-w-full wrap-break-word my-6'>
