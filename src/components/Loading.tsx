@@ -13,7 +13,7 @@ const fadeInOut = {
 
 export const Loading = ({ className }: React.ComponentProps<'div'>) => {
   const navigation = useNavigation();
-    const isLoading = navigation.state === 'loading';
+  const isLoading = navigation.state === 'loading';
 
   if (!isLoading) return null;
 
@@ -23,7 +23,7 @@ export const Loading = ({ className }: React.ComponentProps<'div'>) => {
         <motion.div
           {...fadeInOut}
           className={cn(
-            'fixed left-1/2 -translate-1/2 top-21 p-2 bg-muted  rounded-full shadow-lg ',
+            'fixed left-1/2 -translate-x-1/2 top-21 p-2 bg-muted rounded-full shadow-lg',
             className,
           )}
         >

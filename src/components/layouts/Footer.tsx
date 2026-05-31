@@ -29,7 +29,7 @@ export const Footer = ({
 }: React.ComponentProps<'footer'>) => {
   return (
     <footer
-      className={(cn('border-t '), className)}
+      className={cn('border-t', className)}
       {...props}
     >
       <div className='container py-8 grid max-md:justify-items-center md:grid-cols-[1fr_3fr_1fr] md:items-center'>
